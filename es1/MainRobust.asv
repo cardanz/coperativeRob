@@ -100,10 +100,8 @@ for t = 0:deltat:end_time
     % seconda azione controllo del braccio mantenendo comunque il primo
     % relativo all'impostazione del veicolo 
     
-    %task for the altitude
-    % [Qp, ydotbar] = iCAT_task(uvms.A.valt,    uvms.Jvalt,    Qp, ydotbar, uvms.xdot.valt,  0.0001,   0.01, 10);
-    %
     [Qp, ydotbar] = iCAT_task(uvms.A.ha,    uvms.Jha,    Qp, ydotbar, uvms.xdot.ha,  0.0001,   0.01, 10);
+  
     [Qp, ydotbar] = iCAT_task(uvms.A.vpos,    uvms.Jvpos,    Qp, ydotbar, uvms.xdot.vpos,  0.0001,   0.01, 10);
     [Qp, ydotbar] = iCAT_task(uvms.A.vatt,    uvms.Jvatt,    Qp, ydotbar, uvms.xdot.vatt,  0.0001,   0.01, 10);
     
@@ -116,7 +114,10 @@ for t = 0:deltat:end_time
     
     % Integration
 	uvms.q = uvms.q + uvms.q_dot*deltat;
-        
+    
+    %disturbo ho qualche movimento oscillatorio nella simulazione
+    uvms.p_dot(4) = 0.5 * sin(2*pi*0.5*t);
+    
     % beware: p_dot should be projected on <v>
     uvms.p = integrate_vehicle(uvms.p, uvms.p_dot, deltat);
     
@@ -135,7 +136,9 @@ for t = 0:deltat:end_time
     if (mod(t,0.1) == 0)
         %uvms.sensorDistance
         %activ = uvms.A.ha
-        
+        [w_vang, w_vlin] = CartError(uvms.wTgv , uvms.wTv);
+        w_vlin
+        mission.phase
 
     end
 

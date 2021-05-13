@@ -13,4 +13,4 @@ uvms.A.vatt = eye(3);
 uvms.A.ha = IncreasingBellShapedFunction(0.1, 0.2, 0, 1, norm(uvms.v_rho));
 
 %activation function altitude
-uvms.A.valt = DencreasingBellShapedFunction(0.1, 2, 0, 1,uvms.w_dist);
+uvms.A.valt = DencreasingBellShapedFunction(0.1, 0.2, 0, 1, norm(uvms.v_rho));

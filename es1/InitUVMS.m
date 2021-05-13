@@ -58,22 +58,23 @@ uvms.A.t = zeros(6,6);
 uvms.Jvpos = [];
 uvms.Jvatt = [];
 uvms.Jha = [];
+uvms.Jvalt = [];
 
 uvms.xdot.vpos = [];
 uvms.xdot.vatt = [];
 uvms.xdot.ha = [];
+uvms.xdot.valt = [];
 
 
 uvms.A.vpos = zeros(3,3);
 uvms.A.vatt = zeros(3,3);
 uvms.A.ha = 0;
+uvms.A.valt = 0;
 
 uvms.v_rho = zeros(3,1);
+uvms.w_dist = zeros(3,1);
 
-uvms.Aa.vpos = eye(3);
-uvms.Aa.vatt = eye(3);
-uvms.Aa.ha = eye(3);
-uvms.Aa.t = zeros(6);
+
 
 end
 

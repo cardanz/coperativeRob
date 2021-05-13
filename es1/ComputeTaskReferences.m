@@ -15,3 +15,6 @@ uvms.xdot.vatt(1:3,:) = Saturate(0.2 * w_vang, 0.2);
 
 %I wish to drive the angle to zero
 uvms.xdot.ha = 0.2 * (0 - norm(uvms.v_rho));
+
+%i wish to control the altitude at a given value
+uvms.xdot.valt = 0.2 * (5 - uvms.w_dist);
