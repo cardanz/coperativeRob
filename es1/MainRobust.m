@@ -103,7 +103,9 @@ for t = 0:deltat:end_time
     %task for the altitude
     % [Qp, ydotbar] = iCAT_task(uvms.A.valt,    uvms.Jvalt,    Qp, ydotbar, uvms.xdot.valt,  0.0001,   0.01, 10);
     %
-    [Qp, ydotbar] = iCAT_task(uvms.A.ha,    uvms.Jha,    Qp, ydotbar, uvms.xdot.ha,  0.0001,   0.01, 10);
+    
+    % more important --> 
+    %[Qp, ydotbar] = iCAT_task(uvms.A.ha,    uvms.Jha,    Qp, ydotbar, uvms.xdot.ha,  0.0001,   0.01, 10);
     [Qp, ydotbar] = iCAT_task(uvms.A.vpos,    uvms.Jvpos,    Qp, ydotbar, uvms.xdot.vpos,  0.0001,   0.01, 10);
     [Qp, ydotbar] = iCAT_task(uvms.A.vatt,    uvms.Jvatt,    Qp, ydotbar, uvms.xdot.vatt,  0.0001,   0.01, 10);
     
