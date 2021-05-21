@@ -33,38 +33,12 @@ uvms.Jt_a  = uvms.Ste * [uvms.vTb(1:3,1:3) zeros(3,3); zeros(3,3) uvms.vTb(1:3,1
 % variables
 uvms.Jt_v = [zeros(3) eye(3); eye(3) -skew(uvms.vTt(1:3,4))];
 % juxtapose the two Jacobians to obtain the global one
-% lo jacobiano è composto da una parte relativa al braccio e l'altra
-% relativa al tool, proiettato sul frame del veicolo 
 uvms.Jt = [uvms.Jt_a uvms.Jt_v];
 
-%vehicle frame jacobians  project on the world frame 
-%position and attitude
-uvms.Jvpos = [zeros(3,7), uvms.wTv(1:3,1:3) zeros(3,3)];
-uvms.Jvatt = [zeros(3,7), zeros(3,3)  uvms.wTv(1:3,1:3)];
+%jacobian for vehicle position
+uvms.JvehiclePos = [zeros(3,7), uvms.wTv(1:3,1:3), 0, 0, 0];
 
-%vehicle horizontal attitude
-w_kw = [0 0 1]'; %kworld rispetto world 
-v_kv = [0 0 1]'; %kvehicle rispetto vehicle
-v_kw = uvms.vTw(1:3,1:3) * w_kw;
-
-%sfrutto reduced inversion lemma (questo è il disallineamento) 
-uvms.v_rho = ReducedVersorLemma(v_kw, v_kv);
-%ottengo l'angolo
-v_n = uvms.v_rho / norm(uvms.v_rho);
-
-uvms.Jha = [zeros(1,7) zeros(1,3) v_n'];
-
-%vehicle altitude 
-%detected distance projected o <v>
-v_sen_alt = [0   0 uvms.sensorDistance]';
-%detected distance projected o <w> 
-w_sen_alt = uvms.wTv(1:3,1:3) * v_sen_alt;
-%projection on k direction 
-uvms.w_dist = w_kw' * w_sen_alt;
-
-%vehicle altitude jacobian 
-uvms.Jvalt = [zeros(1,7) w_kw' * uvms.wTv(1:3,1:3) zeros(1,3)];
-
-
+%jacobian for vehicle attitude
+uvms.JvehicleAtt = [zeros(3,7), zeros(3,3), uvms.wTv(1:3,1:3)];
 
 end
