@@ -62,6 +62,9 @@ uvms.A.t = zeros(6,6);
 uvms.A.vehiclePos = zeros(3,3);
 uvms.A.vehicleAtt = zeros(3,3);
 
+%printValue
+uvms.wAng = 0;
+uvms.wLin = 0;
 
 end
 

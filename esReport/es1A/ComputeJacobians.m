@@ -36,7 +36,7 @@ uvms.Jt_v = [zeros(3) eye(3); eye(3) -skew(uvms.vTt(1:3,4))];
 uvms.Jt = [uvms.Jt_a uvms.Jt_v];
 
 %jacobian for vehicle position
-uvms.JvehiclePos = [zeros(3,7), uvms.wTv(1:3,1:3), 0, 0, 0];
+uvms.JvehiclePos = [zeros(3,7), uvms.wTv(1:3,1:3), zeros(3,3)];
 
 %jacobian for vehicle attitude
 uvms.JvehicleAtt = [zeros(3,7), zeros(3,3), uvms.wTv(1:3,1:3)];

@@ -9,6 +9,10 @@ uvms.xdot.t(1:3) = Saturate(uvms.xdot.t(1:3), 0.2);
 uvms.xdot.t(4:6) = Saturate(uvms.xdot.t(4:6), 0.2);
 
 %error between goal and vehicle position and orientation projected on <w>
-[w_vang, w_vlin] = CartError(uvms.wTgv , uvms.wTv);
+[w_vang, w_vlin] = CartError(uvms.wTgvehicle , uvms.wTv);
 uvms.xdot.vehiclePos(1:3,:) = Saturate(0.2 * w_vlin, 0.2);
 uvms.xdot.vehicleAtt(1:3,:) = Saturate(0.2 * w_vang, 0.2);
+
+%print var
+uvms.wAng = w_vang;
+uvms.wLin = w_vlin;
