@@ -41,4 +41,12 @@ uvms.JvehiclePos = [zeros(3,7), uvms.wTv(1:3,1:3), zeros(3,3)];
 %jacobian for vehicle attitude
 uvms.JvehicleAtt = [zeros(3,7), zeros(3,3), uvms.wTv(1:3,1:3)];
 
+%jacobian for altitude
+w_kw = [0 0 1]';
+v_sensorDistance = [0 0 uvms.sensorDistance]';
+w_sensorDistance = uvms.wTv(1:3,1:3) * v_sensorDistance;
+%scalar product 
+uvms.w_distance = w_kw' * w_sensorDistance;
+uvms.JvehicleAlt = [zeros(1,7) w_kw' * uvms.wTv(1:3, 1:3) zeros(1,3)];
+
 end

@@ -9,3 +9,6 @@ uvms.A.t = eye(6);
 uvms.A.vehiclePos = eye(3);
 %activation function vehicle attitude
 uvms.A.vehicleAtt = eye(3);
+%activation function vehicle altitude(for sure about 1m, and i don't care
+%over 1.5 m
+uvms.A.vehicleAlt = DecreasingBellShapedFunction(1, 1.5, 0, 1, uvms.sensorDistance);

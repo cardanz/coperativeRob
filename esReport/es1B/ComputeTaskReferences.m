@@ -13,6 +13,9 @@ uvms.xdot.t(4:6) = Saturate(uvms.xdot.t(4:6), 0.2);
 uvms.xdot.vehiclePos(1:3,:) = Saturate(0.2 * w_vlin, 0.2);
 uvms.xdot.vehicleAtt(1:3,:) = Saturate(0.2 * w_vang, 0.2);
 
+%reference for altittude task
+uvms.xdot.vehicleAlt = 0.2 * (1.5 - uvms.w_distance);
+
 %print var
 uvms.wAng = w_vang;
 uvms.wLin = w_vlin;
