@@ -86,12 +86,12 @@ for t = 0:deltat:end_time
     Qp = eye(13); 
     % add all the other tasks here!
     % the sequence of iCAT_task calls defines the priority
-    %[Qp, ydotbar] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp, ydotbar, uvms.xdot.t,  0.0001,   0.01, 10);
+    [Qp, ydotbar] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp, ydotbar, uvms.xdot.t,  0.0001,   0.01, 10);
+    
     
     [Qp, ydotbar] = iCAT_task(uvms.A.vehicleAtt,    uvms.JvehicleAtt,    Qp, ydotbar, uvms.xdot.vehicleAtt,  0.0001,   0.01, 10);
     [Qp, ydotbar] = iCAT_task(uvms.A.vehiclePos,    uvms.JvehiclePos,    Qp, ydotbar, uvms.xdot.vehiclePos,  0.0001,   0.01, 10);
     
-   
     [Qp, ydotbar] = iCAT_task(eye(13),     eye(13),    Qp, ydotbar, zeros(13,1),  0.0001,   0.01, 10);    % this task should be the last one
     
     % get the two variables for integration
@@ -115,10 +115,9 @@ for t = 0:deltat:end_time
    
     % add debug prints here
     if (mod(t,0.1) == 0)
-        
-        uvms.sensorDistance
-        angularVelocity = uvms.wAng
-        lineraVelocity = uvms.wLin
+       tempo = t
+       uvms.p
+       
     end
 
     % enable this to have the simulation approximately evolving like real
