@@ -45,6 +45,11 @@ hplot = plot(plt.t, plt.p_dot((4: end),:));
 set(hplot, 'LineWidth', 1);
 legend('omega_x','omega_y','omega_z');
 
+figure(6);
+hplot = plot(plt.t, plt.altitude(:,:));
+set(hplot, 'LineWidth', 1);
+legend('altitude');
+
     
 
 end

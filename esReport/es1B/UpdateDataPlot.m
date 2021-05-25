@@ -27,4 +27,7 @@ plt.a(9, loop) = uvms.A.ha(1,1);
 
 plt.toolx(:,loop) = uvms.wTt(1,4);
 plt.tooly(:,loop) = uvms.wTt(2,4);
+
+% altitutde
+plt.altitude(:,loop) = uvms.w_distance;
 end
