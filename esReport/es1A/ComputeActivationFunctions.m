@@ -5,6 +5,9 @@ function [uvms] = ComputeActivationFunctions(uvms, mission)
 % always active
 uvms.A.t = eye(6);
 
+%activation function limited att
+uvms.A.ha = IncreasingBellShapedFunction(0.1, 0.2, 0, 1, norm(uvms.v_rho));
+
 %activation function vehicle position 
 uvms.A.vehiclePos = eye(3);
 %activation function vehicle attitude

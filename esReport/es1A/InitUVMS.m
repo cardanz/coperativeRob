@@ -43,6 +43,7 @@ uvms.Jt_a = [];
 uvms.Jt_v = [];
 uvms.Jt = [];
 %jacobian added
+uvms.Jha = [];
 uvms.JvehiclePos = [];
 uvms.JvehicleAtt = [];
 
@@ -51,6 +52,7 @@ uvms.xdot.mu = [];
 uvms.xdot.ha = [];
 uvms.xdot.t = [];
 %xdot added
+uvms.xdot.ha = [];
 uvms.xdot.vehiclePos = [];
 uvms.xdot.vehicleAtt = [];
     
@@ -59,8 +61,12 @@ uvms.A.mu = 0;
 uvms.A.ha = zeros(1,1);
 uvms.A.t = zeros(6,6);
 %activation added
+uvms.A.ha = 0;
 uvms.A.vehiclePos = zeros(3,3);
 uvms.A.vehicleAtt = zeros(3,3);
+
+%others
+uvms.v_rho = zeros(3,1);
 
 %printValue
 uvms.wAng = 0;
