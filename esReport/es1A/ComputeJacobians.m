@@ -41,7 +41,7 @@ v_kv = [0 0 1]';
 v_kw = uvms.vTw(1:3,1:3) * w_kw;
 
 %misallinement
-uvms.v_rho = ReducedVersoLemma(v_kw, v_kv); 
+uvms.v_rho = ReducedVersorLemma(v_kw, v_kv); 
 %the angle
 v_n = uvms.v_rho/norm(uvms.v_rho);
 
