@@ -57,6 +57,8 @@ uvms.xdot.ha = [];
 uvms.xdot.vehiclePos = [];
 uvms.xdot.vehicleAtt = [];
 uvms.xdot.vehicleAlt = [];
+uvms.xdot.vehicleAltLanding = [];
+
     
 uvms.A.jl = zeros(7,7);
 uvms.A.mu = 0;
@@ -67,6 +69,7 @@ uvms.A.vehiclePos = zeros(3,3);
 uvms.A.vehicleAtt = zeros(3,3);
 uvms.A.vehicleAlt = zeros(1,1);
 uvms.A.ha = 0;
+uvms.A.vehicleAltLanding = 0;
 
 %others
 uvms.v_rho = zeros(3,1);

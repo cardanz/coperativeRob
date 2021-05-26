@@ -21,3 +21,8 @@ uvms.A.vehicleAlt = DecreasingBellShapedFunction(1, 1.5, 0, 1, uvms.w_distance);
 %uvms.A.vehicleAlt = DecreasingBellShapedFunction(5, 5.5, 0, 1, uvms.w_distance);
 % 10 m
 %uvms.A.vehicleAlt = DecreasingBellShapedFunction(10, 10.5, 0, 1, uvms.w_distance);
+
+%landing activation function 
+uvms.A.vehicleAltLanding = 1;
+
+
