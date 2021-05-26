@@ -71,12 +71,19 @@ uvms.A.vehicleAlt = zeros(1,1);
 uvms.A.ha = 0;
 uvms.A.vehicleAltLanding = 0;
 
+%pay attention if initial value  (1) can be dangerous?!?
+uvms.Aa.vehiclePos = eye(3);
+uvms.Aa.vehicleAtt = eye(3);
+uvms.Aa.ha = 1;
+uvms.Aa.vehicleAlt = 1;
+uvms.Aa.vehicleAltLanding = 0;
 %others
 uvms.v_rho = zeros(3,1);
 
 %printValue
 uvms.wAng = 0;
 uvms.wLin = 0;
+
 
 end
 

@@ -17,14 +17,14 @@ uvms.xdot.vehiclePos(1:3,:) = Saturate(0.7 * w_vlin, 0.7);
 uvms.xdot.vehicleAtt(1:3,:) = Saturate(0.2 * w_vang, 0.2);
 
 %reference for  safe altittude task 1 m
-%uvms.xdot.vehicleAlt = 0.7 * (1.5 - uvms.w_distance);
+uvms.xdot.vehicleAlt = 0.7 * (1.5 - uvms.w_distance);
 %reference for  safe altittude task 5 m
-uvms.xdot.vehicleAlt = 0.7 * (5.5 - uvms.w_distance);
+%uvms.xdot.vehicleAlt = 0.7 * (5.5 - uvms.w_distance);
 %reference for  safe altittude task 10 m
 %uvms.xdot.vehicleAlt = 0.7 * (10.5 - uvms.w_distance);
 
 %reference for landing action 
-uvms.xdot.vehicleAltLanding = 0.7 * (0 - uvms.w_distance);
+uvms.xdot.vehicleAltLanding = 0.2 * (0 - uvms.w_distance);
 
 %print var
 uvms.wAng = w_vang;
