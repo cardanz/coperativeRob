@@ -122,7 +122,7 @@ for t = 0:deltat:end_time
     if (mod(t,0.1) == 0)
        uvms.p
        uvms.w_distance
-       mission.phase
+       
     end
 
     % enable this to have the simulation approximately evolving like real
