@@ -24,7 +24,7 @@ uvms.xdot.vehicleAlt = 0.7 * (1.5 - uvms.w_distance);
 %uvms.xdot.vehicleAlt = 0.7 * (10.5 - uvms.w_distance);
 
 %reference for landing action 
-uvms.xdot.vehicleAltLanding = 0.2 * (0 - uvms.w_distance);
+uvms.xdot.vehicleAltLanding = 0.5 * (0 - uvms.w_distance);
 
 %print var
 uvms.wAng = w_vang;
