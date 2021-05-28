@@ -60,4 +60,26 @@ w_sensorDistance = uvms.wTv(1:3,1:3) * v_sensorDistance;
 uvms.w_distance = w_kw' * w_sensorDistance;
 uvms.JvehicleAlt = [zeros(1,7) w_kw' * uvms.wTv(1:3, 1:3) zeros(1,3)];
 
+%jacobian for alignment to target 
+% rock position 
+rock_center = [12.2025   37.3748  -39.8860]'; % in world frame coordinates
+w_distRockVehicle = rock_center - uvms.wTv(1:3, 4);
+w_distRockVehicleP = w_distRockVehicle - ((w_distRockVehicle' * w_kw) * w_kw);
+if norm(w_distRockVehicleP) ~= 0
+    w_distRockVehiclePlanV = w_distRockVehicleP/norm(w_distRockVehicleP);
+else
+    w_distRockVehiclePlanV = [0, 0, 0]';
+end
+
+v_distRockVehiclePlanV = uvms.vTw(1:3,1:3) * w_distRockVehiclePlanV ;
+%misallinement
+misallinement = ReducedVersorLemma([1;0;0], v_distRockVehiclePlanV); 
+if norm(misallinement) ~= 0
+    rho =misallinement/norm(misallinement);
+else
+    rho = [0, 0, 0]';
+end    
+uvms.phi = norm(misallinement)
+uvms.JvehicleAllignement = rho' * [zeros(3,7),  -(1/norm(w_distRockVehicleP) * norm(w_distRockVehicleP))) * skew(w_distRockVehicleP), -eye(3)];
+
 end

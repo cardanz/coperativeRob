@@ -26,6 +26,9 @@ uvms.xdot.vehicleAlt = 0.7 * (1.5 - uvms.w_distance);
 %reference for landing action 
 uvms.xdot.vehicleAltLanding = 0.5 * (0 - uvms.w_distance);
 
+%reference for horizontal alignment
+uvms.xdot.vehiclehorAlignement = Saturate(0.3 * (0 - uvms.phi), 0.3);
+
 %print var
 uvms.wAng = w_vang;
 uvms.wLin = w_vlin;
