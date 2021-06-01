@@ -90,4 +90,7 @@ uvms.JtargetDistance = [zeros(1,7) -(1/norm(uvms.targetDistance)) * [uvms.target
 % 4.1 
 uvms.JvehicleStop = [zeros(6,7), eye(6)];
 
+%jacobian for join limits 
+uvms.JjointLimits = [eye(7), zeros(7,6)];
+
 end
