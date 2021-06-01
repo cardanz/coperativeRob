@@ -12,20 +12,22 @@ switch mission.phase
                 
         case 2
             % activate landing disable others, maintain ha
-            uvms.Aa.horAlignement = IncreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time) * eye(3);
+            uvms.Aa.horAlignement = IncreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time);
             uvms.Aa.vehicleAtt = DecreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time) * eye(3);
             uvms.Aa.vehicleAlt = 1;
-            uvms.Aa.vehiclePos = eye(3);
+            uvms.Aa.vehiclePos =  eye(3);
             uvms.Aa.vehicleAltLanding = 0; 
             uvms.Aa.ha = 1;
         case 3
             % activate landing disable others, maintain ha
-            uvms.Aa.vehiclePos = DecreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time) * eye(3);
+            uvms.Aa.horAlignement = 1;
             uvms.Aa.vehicleAtt = 0 * eye(3);
             uvms.Aa.vehicleAlt = DecreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time);
-            uvms.Aa.vehicleAltLanding = IncreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time);
+            uvms.Aa.vehiclePos = DecreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time) * eye(3);
+            uvms.Aa.vehicleAltLanding = IncreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time); 
             uvms.Aa.ha = 1;
-    end
+                  
+end
 
 % arm tool position control
 % always active
@@ -50,5 +52,7 @@ uvms.A.vehicleAlt = DecreasingBellShapedFunction(1, 1.5, 0, 1, uvms.w_distance) 
 
 %landing activation function 
 uvms.A.vehicleAltLanding = 1 * uvms.Aa.vehicleAltLanding;
+%
+uvms.A.horAlignement = 1;
 
 

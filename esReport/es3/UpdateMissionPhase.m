@@ -8,7 +8,7 @@ function [uvms, mission] = UpdateMissionPhase(uvms, mission)
                 mission.phase_time = 0;
             end
          case 2
-             if(uvms.phi < 0.2) 
+             if(uvms.phi < 0.05) 
                 mission.phase = 3;
                 mission.phase_time = 0;
              end

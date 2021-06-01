@@ -71,15 +71,15 @@ else
     w_distRockVehiclePlanV = [0, 0, 0]';
 end
 
-v_distRockVehiclePlanV = uvms.vTw(1:3,1:3) * w_distRockVehiclePlanV ;
+v_distRockVehiclePlanV = uvms.vTw(1:3, 1:3) * w_distRockVehiclePlanV ;
 %misallinement
-misallinement = ReducedVersorLemma([1;0;0], v_distRockVehiclePlanV); 
+misallinement = ReducedVersorLemma([1,0,0]', v_distRockVehiclePlanV); 
 if norm(misallinement) ~= 0
     rho =misallinement/norm(misallinement);
 else
     rho = [0, 0, 0]';
 end    
-uvms.phi = norm(misallinement)
-uvms.JvehicleAllignement = rho' * [zeros(3,7),  -(1/norm(w_distRockVehicleP) * norm(w_distRockVehicleP))) * skew(w_distRockVehicleP), -eye(3)];
+uvms.phi = norm(misallinement);
+uvms.JvehicleAllignement = rho' * [zeros(3, 7),  -(1 / (norm(v_distRockVehiclePlanV) * norm(v_distRockVehiclePlanV))) * skew(v_distRockVehiclePlanV), -eye(3)];
 
 end
