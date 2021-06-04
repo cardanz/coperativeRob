@@ -39,7 +39,7 @@ switch mission.phase
             uvms.Aa.t = 0;
             uvms.Aa.vehicleStop = 0;
             %soon activation for safety reason
-            uvms.Aa.jointLimits = IncreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time);
+            %uvms.Aa.jointLimits = IncreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time);
     case 4  
             uvms.Aa.targetDistance =1;
             uvms.Aa.horAlignement = DecreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time);
@@ -49,7 +49,9 @@ switch mission.phase
             uvms.Aa.vehicleAltLanding = 1; 
             uvms.Aa.ha = 1;
             uvms.Aa.t = IncreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time);
-            uvms.Aa.vehicleStop = IncreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time); 
+            uvms.Aa.vehicleStop = 1;
+            %IncreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time); 
+            %no one forbids to force it to one right away 
             uvms.Aa.jointLimits = 1;
 end
 
@@ -92,7 +94,7 @@ uvms.A.jointLimitsL = diag([DecreasingBellShapedFunction(uvms.jlmin(1), uvms.jlm
                             DecreasingBellShapedFunction(uvms.jlmin(1), uvms.jlmin(6) + uvms.offsetJoint, 0, 1, uvms.q(6)),...
                             DecreasingBellShapedFunction(uvms.jlmin(1), uvms.jlmin(7) + uvms.offsetJoint, 0, 1, uvms.q(7))]) *  uvms.Aa.jointLimits;
                         
-uvms.A.jointLimitsL = diag([IncreasingBellShapedFunction(uvms.jlmax(1) - uvms.offsetJoint, uvms.jlmax(1) , 0, 1, uvms.q(1)),...
+uvms.A.jointLimitsU = diag([IncreasingBellShapedFunction(uvms.jlmax(1) - uvms.offsetJoint, uvms.jlmax(1) , 0, 1, uvms.q(1)),...
                             IncreasingBellShapedFunction(uvms.jlmax(1) - uvms.offsetJoint, uvms.jlmax(2) , 0, 1, uvms.q(2)),...
                             IncreasingBellShapedFunction(uvms.jlmax(1) - uvms.offsetJoint, uvms.jlmax(3) , 0, 1, uvms.q(3)),...
                             IncreasingBellShapedFunction(uvms.jlmax(1) - uvms.offsetJoint, uvms.jlmax(4) , 0, 1, uvms.q(4)),...
@@ -101,5 +103,5 @@ uvms.A.jointLimitsL = diag([IncreasingBellShapedFunction(uvms.jlmax(1) - uvms.of
                             IncreasingBellShapedFunction(uvms.jlmax(1) - uvms.offsetJoint, uvms.jlmax(7) , 0, 1, uvms.q(7))]) *  uvms.Aa.jointLimits;
                                                 
     
-uvms.A.jointLimitsU 
+
 

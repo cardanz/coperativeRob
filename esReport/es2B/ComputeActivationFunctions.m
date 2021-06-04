@@ -11,11 +11,11 @@ switch mission.phase
                 
         case 2
             % activate landing disable others, maintain ha
-            %uvms.Aa.vehiclePos = DecreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time) * eye(3);
-            %uvms.Aa.vehicleAtt = DecreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time) * eye(3);
+            uvms.Aa.vehiclePos = DecreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time) * eye(3);
+            uvms.Aa.vehicleAtt = DecreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time) * eye(3);
             uvms.Aa.vehicleAlt = DecreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time);
-            uvms.Aa.vehiclePos = eye(3);
-            uvms.Aa.vehicleAtt = eye(3);
+            %uvms.Aa.vehiclePos = eye(3);
+            %uvms.Aa.vehicleAtt = eye(3);
             uvms.Aa.vehicleAltLanding = IncreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time);
             uvms.Aa.ha = 1;
     end

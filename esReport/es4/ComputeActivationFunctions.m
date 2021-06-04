@@ -37,13 +37,13 @@ switch mission.phase
             uvms.Aa.t = 0;
             uvms.Aa.vehicleStop = 0;
     case 4  
-            uvms.Aa.targetDistance =1;
+            uvms.Aa.targetDistance =DecreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time);
             uvms.Aa.horAlignement = DecreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time);
             uvms.Aa.vehicleAtt = 0 * eye(3);
             uvms.Aa.vehicleAlt = 0;
             uvms.Aa.vehiclePos = zeros(3,3);
-            uvms.Aa.vehicleAltLanding = 1; 
-            uvms.Aa.ha = 1;
+            uvms.Aa.vehicleAltLanding = DecreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time); 
+            uvms.Aa.ha = DecreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time);
             uvms.Aa.t = IncreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time);
             uvms.Aa.vehicleStop = IncreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time); 
             

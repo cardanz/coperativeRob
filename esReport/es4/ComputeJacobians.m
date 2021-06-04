@@ -86,8 +86,7 @@ uvms.JvehicleAllignement = rho' * [zeros(3, 7),  -(1 / (norm(v_distRockVehiclePl
 uvms.targetDistance = rock_center(1:2) - uvms.p(1:2);
 uvms.JtargetDistance = [zeros(1,7) -(1/norm(uvms.targetDistance)) * [uvms.targetDistance', 0] * uvms.wTv(1:3, 1:3) zeros(1,3)];
 
-%stop vehicle aggiungedo questo task al 3 praticamente hai già risposto all
-% 4.1 
+%jacobian stop vehicle 
 uvms.JvehicleStop = [zeros(6,7), eye(6)];
 
 end

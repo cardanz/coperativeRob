@@ -11,7 +11,7 @@ switch mission.phase
             uvms.Aa.horAlignement = zeros(3,3);
                 
         case 2
-            % activate landing disable others, maintain ha
+            % point to the rock
             uvms.Aa.horAlignement = IncreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time);
             uvms.Aa.vehicleAtt = DecreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time) * eye(3);
             uvms.Aa.vehicleAlt = 1;

@@ -45,7 +45,7 @@ switch mission.phase
             uvms.Aa.vehicleAltLanding = 1; 
             uvms.Aa.ha = 1;
             uvms.Aa.t = IncreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time);
-            uvms.Aa.vehicleStop = IncreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time); 
+            uvms.Aa.vehicleStop = 1; 
             
 end
 

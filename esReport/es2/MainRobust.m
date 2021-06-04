@@ -114,7 +114,7 @@ for t = 0:deltat:end_time
     SendUdpPackets(uvms,wuRw,vRvu,uArm,uVehicle);
         
     % collect data for plots
-    plt = UpdateDataPlot(plt,uvms,t,loop);
+    plt = UpdateDataPlot(plt,uvmsa,t,loop);
     loop = loop + 1;
    
     % add debug prints here
@@ -122,6 +122,7 @@ for t = 0:deltat:end_time
        tempo = t
        uvms.p
        distanceV = uvms.w_distance
+       uvms.sensorDistance
     end
 
     % enable this to have the simulation approximately evolving like real
