@@ -96,8 +96,11 @@ for t = 0:deltat:end_time
     [Qp, ydotbar] = iCAT_task(uvms.A.vehicleStop,    uvms.JvehicleStop,    Qp, ydotbar, uvms.xdot.vehicleStop,  0.0001,   0.01, 10);
 
     [Qp, ydotbar] = iCAT_task(uvms.Aa.targetDistance,    uvms.JtargetDistance,    Qp, ydotbar, uvms.xdot.targetDistance,  0.0001,   0.01, 10);
-
     
+    %joint limits
+    [Qp, ydotbar] = iCAT_task(uvms.A.jointLimitsL,    uvms.JjointLimits,    Qp, ydotbar, uvms.xdot.jointLimitsL,  0.0001,   0.01, 10);
+    [Qp, ydotbar] = iCAT_task(uvms.A.jointLimitsU,    uvms.JjointLimits,    Qp, ydotbar, uvms.xdot.jointLimitsU,  0.0001,   0.01, 10);
+
     
     [Qp, ydotbar] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp, ydotbar, uvms.xdot.t,  0.0001,   0.01, 10);
     [Qp, ydotbar] = iCAT_task(uvms.A.vehiclePos,    uvms.JvehiclePos,    Qp, ydotbar, uvms.xdot.vehiclePos,  0.0001,   0.01, 10);
@@ -129,7 +132,8 @@ for t = 0:deltat:end_time
    
     % add debug prints here
     if (mod(t,0.1) == 0)
-      norm(uvms.targetDistance)
+       uvms.p
+       mission.phase 
        
     end
 

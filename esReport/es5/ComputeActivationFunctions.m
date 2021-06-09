@@ -12,6 +12,7 @@ switch mission.phase
             uvms.Aa.t = 0;
             uvms.Aa.targetDistance = 0;
             uvms.Aa.vehicleStop = 0;
+            uvms.Aa.jointLimits = 0;
 
                 
         case 2
@@ -25,6 +26,7 @@ switch mission.phase
             uvms.Aa.t = 0;
             uvms.Aa.targetDistance = 0;
             uvms.Aa.vehicleStop = 0;
+            uvms.Aa.jointLimits = 0;
         case 3
             % activate landing disable others, maintain ha
             uvms.Aa.targetDistance = IncreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time);
@@ -36,6 +38,8 @@ switch mission.phase
             uvms.Aa.ha = 1;
             uvms.Aa.t = 0;
             uvms.Aa.vehicleStop = 0;
+            %soon activation for safety reason
+            %uvms.Aa.jointLimits = IncreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time);
     case 4  
             uvms.Aa.targetDistance =1;
             uvms.Aa.horAlignement = DecreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time);
@@ -45,8 +49,10 @@ switch mission.phase
             uvms.Aa.vehicleAltLanding = 1; 
             uvms.Aa.ha = 1;
             uvms.Aa.t = IncreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time);
-            uvms.Aa.vehicleStop = 1; 
-            
+            uvms.Aa.vehicleStop = 1;
+            %IncreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time); 
+            %no one forbids to force it to one right away 
+            uvms.Aa.jointLimits = 1;
 end
 
 % arm tool position control
@@ -76,7 +82,26 @@ uvms.A.vehicleAltLanding = 1 * uvms.Aa.vehicleAltLanding;
 %
 uvms.A.horAlignement = IncreasingBellShapedFunction(0.05, 0.1, 0, 1, uvms.phi) ;
 %
-uvms.A.targetDistance = IncreasingBellShapedFunction(1.5, 2, 0, 1, norm(uvms.targetDistance)) * uvms.Aa.targetDistance; 
+uvms.A.targetDistance = IncreasingBellShapedFunction(1, 1.5, 0, 1, norm(uvms.targetDistance)) * uvms.Aa.targetDistance; 
 
 uvms.A.vehicleStop = eye(6) * uvms.Aa.vehicleStop;
+ 
+uvms.A.jointLimitsL = diag([DecreasingBellShapedFunction(uvms.jlmin(1), uvms.jlmin(1) + uvms.offsetJoint, 0, 1, uvms.q(1)),...
+                            DecreasingBellShapedFunction(uvms.jlmin(1), uvms.jlmin(2) + uvms.offsetJoint, 0, 1, uvms.q(2)),...
+                            DecreasingBellShapedFunction(uvms.jlmin(1), uvms.jlmin(3) + uvms.offsetJoint, 0, 1, uvms.q(3)),...
+                            DecreasingBellShapedFunction(uvms.jlmin(1), uvms.jlmin(4) + uvms.offsetJoint, 0, 1, uvms.q(4)),...
+                            DecreasingBellShapedFunction(uvms.jlmin(1), uvms.jlmin(5) + uvms.offsetJoint, 0, 1, uvms.q(5)),...
+                            DecreasingBellShapedFunction(uvms.jlmin(1), uvms.jlmin(6) + uvms.offsetJoint, 0, 1, uvms.q(6)),...
+                            DecreasingBellShapedFunction(uvms.jlmin(1), uvms.jlmin(7) + uvms.offsetJoint, 0, 1, uvms.q(7))]) *  uvms.Aa.jointLimits;
+                        
+uvms.A.jointLimitsU = diag([IncreasingBellShapedFunction(uvms.jlmax(1) - uvms.offsetJoint, uvms.jlmax(1) , 0, 1, uvms.q(1)),...
+                            IncreasingBellShapedFunction(uvms.jlmax(1) - uvms.offsetJoint, uvms.jlmax(2) , 0, 1, uvms.q(2)),...
+                            IncreasingBellShapedFunction(uvms.jlmax(1) - uvms.offsetJoint, uvms.jlmax(3) , 0, 1, uvms.q(3)),...
+                            IncreasingBellShapedFunction(uvms.jlmax(1) - uvms.offsetJoint, uvms.jlmax(4) , 0, 1, uvms.q(4)),...
+                            IncreasingBellShapedFunction(uvms.jlmax(1) - uvms.offsetJoint, uvms.jlmax(5) , 0, 1, uvms.q(5)),...
+                            IncreasingBellShapedFunction(uvms.jlmax(1) - uvms.offsetJoint, uvms.jlmax(6) , 0, 1, uvms.q(6)),...
+                            IncreasingBellShapedFunction(uvms.jlmax(1) - uvms.offsetJoint, uvms.jlmax(7) , 0, 1, uvms.q(7))]) *  uvms.Aa.jointLimits;
+                                                
+    
+
 
