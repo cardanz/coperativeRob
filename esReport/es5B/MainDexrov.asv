@@ -6,7 +6,7 @@ close all
 
 % Simulation variables (integration and final time)
 deltat = 0.005;
-end_time = 40;
+end_time = 15;
 loop = 1;
 maxloops = ceil(end_time/deltat);
 
@@ -24,6 +24,7 @@ u_pipe_center = [-10.66 31.47 -1.94]'; % in unity coordinates
 pipe_center = wuRw'*u_pipe_center;     % in world frame coordinates
 pipe_radius = 0.3;
 
+% UDP Connection with Unity viewer v2
 % UDP Connection with Unity viewer v2
 uArm = udp('127.0.0.1',15000,'OutputDatagramPacketSize',28);
 uVehicle = udp('127.0.0.1',15001,'OutputDatagramPacketSize',24);
@@ -54,6 +55,14 @@ uvms.goalPosition = pipe_center + (pipe_radius + distanceGoalWrtPipe)*[0 0 1]';
 uvms.wRg = rotation(pi,0,0);
 uvms.wTg = [uvms.wRg uvms.goalPosition; 0 0 0 1];
 
+%vehicle goal position
+%define the goal position for the vehicle 
+uvms.vehicleGoalPosition = [9.5    37.5 -38]';
+uvms.wRgvehicle = rotation(0, -0.06,    0.5);
+%goal frame w.r.t world frameas
+uvms.wTgvehicle = [uvms.wRgvehicle uvms.vehicleGoalPosition; 0 0 0 1];
+
+
 % defines the tool control point
 uvms.eTt = eye(4);
 tic
@@ -63,19 +72,28 @@ for t = 0:deltat:end_time
     uvms = ComputeJacobians(uvms);
     uvms = ComputeTaskReferences(uvms, mission);
     uvms = ComputeActivationFunctions(uvms, mission);
-   
+       
     % main kinematic algorithm initialization
     % rhop order is [qdot_1, qdot_2, ..., qdot_7, xdot, ydot, zdot, omega_x, omega_y, omega_z]
     rhop = zeros(13,1);
     Qp = eye(13); 
     % add all the other tasks here!
     % the sequence of iCAT_task calls defines the priority
+    
+    %safety tasks
+    %[Qp, rhop] = iCAT_task(uvms.A.vehicleAlt,    uvms.JvehicleAlt,    Qp, rhop, uvms.xdot.vehicleAlt,  0.0001,   0.01, 10);
+    [Qp, rhop] = iCAT_task(uvms.A.ha,   uvms.Jha,   Qp, rhop, uvms.xdot.ha, 0.0001,   0.01, 10);    
+    
+    %vehicle position
+    %[Qp, ydotbar] = iCAT_task(uvms.A.horAlignement,    uvms.JvehicleAllignement,    Qp, ydotbar, uvms.xdot.vehiclehorAlignement,  0.0001,   0.01, 10);
+    %[Qp, ydotbar] = iCAT_task(uvms.A.vehicleAltLanding,    uvms.JvehicleAlt,    Qp, ydotbar, uvms.xdot.vehicleAltLanding,  0.0001,   0.01, 10);
+    
+    %[Qp, ydotbar] = iCAT_task(uvms.A.vehicleStop,    uvms.JvehicleStop,    Qp, ydotbar, uvms.xdot.vehicleStop,  0.0001,   0.01, 10);
+
+    [Qp, rhop] = iCAT_task(uvms.Aa.targetDistance,    uvms.JtargetDistance,    Qp, rhop, uvms.xdot.targetDistance,  0.0001,   0.01, 10);
+    
     %[Qp, rhop] = iCAT_task(uvms.A.mu,   uvms.Jmu,   Qp, rhop, uvms.xdot.mu, 0.000001, 0.0001, 10);
-    %[Qp, rhop] = iCAT_task(uvms.A.ha,  uvms.Jha,   Qp, rhop, uvms.xdot.ha, 0.0001,   0.01, 10);
     
-    [Qp, rhop] = iCAT_task(uvms.A.ha,    uvms.Jha,    Qp, rhop, uvms.xdot.ha,  0.0001,   0.01, 10);
-    
-    %[Qp, rhop] = iCAT_task(uvms.A.preferedShape,    uvms.JpreferedShape,    Qp, rhop, uvms.xdot.preferedShape,  0.0001,   0.01, 10);
     [Qp, rhop] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp, rhop, uvms.xdot.t,  0.0001,   0.01, 10);
     [Qp, rhop] = iCAT_task(eye(13),     eye(13),    Qp, rhop, zeros(13,1),  0.0001,   0.01, 10);    % this task should be the last one
     
@@ -88,7 +106,8 @@ for t = 0:deltat:end_time
     % beware: p_dot should be projected on <v>
     uvms.p = integrate_vehicle(uvms.p, uvms.p_dot, deltat);
     
-    % check if the mission phase should be changed
+  % check if the mission phase should be changed
+    mission.phase_time = mission.phase_time + deltat;
     [uvms, mission] = UpdateMissionPhase(uvms, mission);
     
     % send packets to Unity viewer
@@ -98,10 +117,9 @@ for t = 0:deltat:end_time
     plt = UpdateDataPlot(plt,uvms,t,loop);
     loop = loop + 1;
    
-    % add debug prints here
+    % add debug prints hereww
     if (mod(t,0.1) == 0)
-        
-        uvms.p'
+        uvms.p
     end
     
     % enable this to have the simulation approximately evolving like real
