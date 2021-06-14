@@ -35,17 +35,20 @@ uvms.Jt_v = [zeros(3) eye(3); eye(3) -skew(uvms.vTt(1:3,4))];
 % juxtapose the two Jacobians to obtain the global one
 uvms.Jt = [uvms.Jt_a uvms.Jt_v];
 
+
 %jacobian horizontal attitude
 w_kw = [0 0 1]';
 v_kv = [0 0 1]';
 v_kw = uvms.vTw(1:3,1:3) * w_kw;
-
-%misallinement
 uvms.v_rho = ReducedVersorLemma(v_kw, v_kv); 
-%the angle
-v_n = uvms.v_rho/norm(uvms.v_rho);
+if norm(uvms.v_rho) ~= 0
+    v_n = uvms.v_rho/norm(uvms.v_rho);
+else
+    v_n = [0, 0, 0]';
+end 
 
 uvms.Jha = [zeros(1,7), zeros(1,3), v_n'];
+
 %jacobian for vehicle position
 uvms.JvehiclePos = [zeros(3,7), uvms.wTv(1:3,1:3), zeros(3,3)];
 
