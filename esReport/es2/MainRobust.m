@@ -48,7 +48,7 @@ uvms.q = [-0.0031 0 0.0128 -1.2460 0.0137 0.0853-pi/2 0.0137]';
 % initial position of the vehicle
 % the vector contains the values in the following order
 % [x y z r(rot_x) p(rot_y) y(rot_z)]
-% RPY angles are applied in the following sequence
+% RPY angles are applied in the following sequenceda1
 % R(rot_x, rot_y, rot_z) = Rz (rot_z) * Ry(rot_y) * Rx(rot_x)
 uvms.p = [10.5    37.5 -38    0 -0.06    0.5]'; 
 
@@ -114,7 +114,7 @@ for t = 0:deltat:end_time
     SendUdpPackets(uvms,wuRw,vRvu,uArm,uVehicle);
         
     % collect data for plots
-    plt = UpdateDataPlot(plt,uvmsa,t,loop);
+    plt = UpdateDataPlot(plt,uvms,t,loop);
     loop = loop + 1;
    
     % add debug prints here
