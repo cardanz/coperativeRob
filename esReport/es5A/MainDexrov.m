@@ -30,6 +30,7 @@ uVehicle = udp('127.0.0.1',15001,'OutputDatagramPacketSize',24);
 fopen(uVehicle);
 fopen(uArm);
 
+
 % Preallocation
 plt = InitDataPlot(maxloops);
 
@@ -102,6 +103,8 @@ for t = 0:deltat:end_time
     if (mod(t,0.1) == 0)
         
         uvms.p'
+        uvms.sensorDistance
+        
     end
     
     % enable this to have the simulation approximately evolving like real

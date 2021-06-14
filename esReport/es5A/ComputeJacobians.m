@@ -44,12 +44,7 @@ if norm(uvms.v_rho) ~= 0
     v_n = uvms.v_rho;
 else
     v_n = [0, 0, 0]';
-end    
-
-%misallinement
-%uvms.v_rho = ReducedVersorLemma(v_kw, v_kv); 
-%the angle
-%v_n = uvms.v_rho/norm(uvms.v_rho);
+end 
 
 uvms.Jha = [zeros(1,7), zeros(1,3), v_n'];
 
