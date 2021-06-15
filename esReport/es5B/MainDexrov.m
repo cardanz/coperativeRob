@@ -6,7 +6,7 @@ close all
 
 % Simulation variables (integration and final time)
 deltat = 0.005;
-end_time = 15;
+end_time = 40;
 loop = 1;
 maxloops = ceil(end_time/deltat);
 
@@ -57,7 +57,7 @@ uvms.wTg = [uvms.wRg uvms.goalPosition; 0 0 0 1];
 
 %vehicle goal position
 %define the goal position for the vehicle
-distanceVehicleWrtPipe = 2;
+distanceVehicleWrtPipe = 3;
 uvms.vehicleGoalPosition = pipe_center + (pipe_radius + distanceVehicleWrtPipe)*[0 0 1]';
 uvms.wRgvehicle = rotation(0, 0, 0);
 %goal frame w.r.t world frameas
@@ -88,15 +88,17 @@ for t = 0:deltat:end_time
     %vehicle position
     %[Qp, ydotbar] = iCAT_task(uvms.A.horAlignement,    uvms.JvehicleAllignement,    Qp, ydotbar, uvms.xdot.vehiclehorAlignement,  0.0001,   0.01, 10);
     %[Qp, ydotbar] = iCAT_task(uvms.A.vehicleAltLanding,    uvms.JvehicleAlt,    Qp, ydotbar, uvms.xdot.vehicleAltLanding,  0.0001,   0.01, 10);
-    %[Qp, ydotbar] = iCAT_task(uvms.A.vehicleStop,    uvms.JvehicleStop,    Qp, ydotbar, uvms.xdot.vehicleStop,  0.0001,   0.01, 10);
-    %[Qp, rhop] = iCAT_task(uvms.Aa.targetDistance,    uvms.JtargetDistance,    Qp, rhop, uvms.xdot.targetDistance,  0.0001,   0.01, 10);
-    
+    %[Qp, rhop] = iCAT_task(uvms.Aa.targetDistance,
+    %uvms.JtargetDistance,    Qp, rhop, uvms.xdot.targetDistance,  0.0001,   0.01, 10);w
     [Qp, rhop] = iCAT_task(uvms.A.vehiclePos,    uvms.JvehiclePos,    Qp, rhop, uvms.xdot.vehiclePos,  0.0001,   0.01, 10);
     [Qp, rhop] = iCAT_task(uvms.A.vehicleAtt,    uvms.JvehicleAtt,    Qp, rhop, uvms.xdot.vehicleAtt,  0.0001,   0.01, 10);
     
-    %[Qp, rhop] = iCAT_task(uvms.A.mu,   uvms.Jmu,   Qp, rhop, uvms.xdot.mu, 0.000001, 0.0001, 10);
-    
-    %[Qp, rhop] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp, rhop, uvms.xdot.t,  0.0001,   0.01, 10);
+    %toll control
+    [Qp, rhop] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp, rhop, uvms.xdot.t,  0.0001,   0.01, 10);
+    %optmization
+    [Qp, rhop] = iCAT_task(uvms.A.preferedShape,    uvms.JpreferedShape,    Qp, rhop, uvms.xdot.preferedShape,  0.0001,   0.01, 10);
+    [Qp, rhop] = iCAT_task(uvms.A.vehicleStop,    uvms.JvehicleStop,    Qp, rhop, uvms.xdot.vehicleStop,  0.0001,   0.01, 10);
+
     [Qp, rhop] = iCAT_task(eye(13),     eye(13),    Qp, rhop, zeros(13,1),  0.0001,   0.01, 10);    % this task should be the last one
     
     % get the two variables for integration
@@ -121,7 +123,9 @@ for t = 0:deltat:end_time
    
     % add debug prints hereww
     if (mod(t,0.1) == 0)
-        uvms.p
+        mission.phase
+        [ang, lin] = CartError(uvms.vTg , uvms.vTt);
+        norm(lin)
     end
     
     % enable this to have the simulation approximately evolving like real

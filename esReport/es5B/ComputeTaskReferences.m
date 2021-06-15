@@ -32,13 +32,13 @@ uvms.xdot.ha = 0.2 * (0 - norm(uvms.v_rho));
 % %reference tool distance
  %uvms.xdot.targetDistance = Saturate(0.5 * (1.5 - norm(uvms.targetDistance)), 0.5);
 % 
-% %stop vehicle
-% uvms.xdot.vehicleStop = zeros(6,1);
+%stop vehicle
+uvms.xdot.vehicleStop = zeros(6,1);
 
 %joint limits
 % uvms.xdot.jointLimitsL = Saturate(0.5 * (uvms.jlmin + uvms.offsetJoint), 0.5);
 % uvms.xdot.jointLimitsU = Saturate(0.5 * (uvms.jlmax - uvms.offsetJoint), 0.5);
 % 
-% %print var
-% uvms.wAng = w_vang;
-% uvms.wLin = w_vlin;
+%prefered shapes
+prefSetting = [-0.0031 1.2586 0.0128 -1.2460]';
+uvms.xdot.preferedShape = prefSetting - uvms.q(1:4);

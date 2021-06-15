@@ -7,10 +7,9 @@ switch mission.phase
             uvms.Aa.vehicleAtt = eye(3);
             uvms.Aa.ha = 1;
             %add vehicle min altitude
+            uvms.Aa.vehicleStop = 0;
             
         case 2
-            %
-            uvms.Aa.horAlignement = IncreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time);
             uvms.Aa.vehicleAtt = DecreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time) * eye(3);
             uvms.Aa.vehiclePos =  eye(3);
             uvms.Aa.vehicleAtt = eye(3);
@@ -27,6 +26,7 @@ uvms.A.ha = IncreasingBellShapedFunction(0.1, 0.2, 0, 1, norm(uvms.v_rho)) * uvm
 uvms.A.vehiclePos = eye(3) * uvms.Aa.vehiclePos;
 %activation function vehicle attitude
 uvms.A.vehicleAtt = eye(3) * uvms.Aa.vehicleAtt;
+
 
 
 

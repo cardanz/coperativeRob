@@ -95,4 +95,8 @@ uvms.JvehicleStop = [zeros(6,7), eye(6)];
 %jacobian for join limits 
 uvms.JjointLimits = [eye(7), zeros(7,6)];
 
+%jacobian prefered shapes 
+uvms.JpreferedShape = [eye(4), zeros(4,9)];
+
+
 end

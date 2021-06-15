@@ -100,7 +100,7 @@ uvms.Aa.targetDistance = 0;
 uvms.Aa.vehicleStop = 0;
 uvms.Aa.jointLimits = 0;
 uvms.Aa.preferedShape = 0;
-uvms.Aa.tool = 0;
+
 
 %others
 uvms.v_rho = zeros(3,1);
