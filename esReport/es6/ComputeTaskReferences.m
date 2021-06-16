@@ -42,3 +42,7 @@ uvms.xdot.vehicleStop = zeros(6,1);
 %prefered shapes
 prefSetting = [-0.0031 1.2586 0.0128 -1.2460]';
 uvms.xdot.preferedShape = prefSetting - uvms.q(1:4);
+
+%vehicle control 
+uvms.xdot.vehicleControl = uvms.p_dot;
+

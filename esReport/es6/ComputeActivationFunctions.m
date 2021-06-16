@@ -3,13 +3,14 @@ function [uvms] = ComputeActivationFunctions(uvms, mission)
 switch mission.phase
         case 1  
             %during phase 1 safe navigation
-            uvms.Aa.vehiclePos = eye(3);
-            uvms.Aa.vehicleAtt = eye(3);
+            %uvms.Aa.vehiclePos = eye(3);
+            %uvms.Aa.vehicleAtt = eye(3);
             uvms.Aa.ha = 1;
             %add vehicle min altitude
-            uvms.Aa.vehicleStop = 0;
-            uvms.Aa.preferedShape = 0;
-            uvms.Aa.tool = 0;
+            %uvms.Aa.vehicleStop = 0;
+            uvms.Aa.preferedShape = 1;
+            uvms.Aa.tool = 1;
+            uvms.Aa.vehicleControl = 1;
             
         case 2
             uvms.Aa.ha = 1;
@@ -36,4 +37,8 @@ uvms.A.vehicleStop = eye(6) * uvms.Aa.vehicleStop;
 
 %shape
 uvms.A.preferedShape = eye(4) * uvms.Aa.preferedShape;
+
+%vehicle control 
+uvms.A.vehicleControl = eye(6) * uvms.Aa.vehicleControl;
+
 

@@ -116,7 +116,7 @@ for t = 0:deltat:end_time
     [Qp2, rhop2] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp2, rhop2, uvms.xdot.t,  0.0001,   0.01, 10);
     %optmization
     [Qp2, rhop2] = iCAT_task(uvms.A.preferedShape,    uvms.JpreferedShape,    Qp2, rhop2, uvms.xdot.preferedShape,  0.0001,   0.01, 10);
-    [Qp2, rhop2] = iCAT_task(uvms.A.vehicleStop,    uvms.JvehicleStop,    Qp2, rhop2, uvms.xdot.vehicleStop,  0.0001,   0.01, 10);
+    [Qp2, rhop2] = iCAT_task(uvms.A.vehicleStop,    uvms.JvehicleStop,    Qp2, rhop, uvms.xdot.vehicleStop,  0.0001,   0.01, 10);
 
     [Qp2, rhop2] = iCAT_task(eye(13),     eye(13),    Qp2, rhop2, zeros(13,1),  0.0001,   0.01, 10);    % this task should be the last one
     
@@ -124,7 +124,7 @@ for t = 0:deltat:end_time
     uvms.q_dot = rhop2(1:7);
     uvms.p_dot = rhop(8:13);
     % add noise
-    uvms.p_dot =  uvms.p_dot + sin(2*pi*0.7*t) * [0;1;1;0;0;0];
+    uvms.p_dot =  uvms.p_dot + sin(2*pi*0.5*t) * [0;0;1;0;0;0];
     
     % Integration
 	uvms.q = uvms.q + uvms.q_dot*deltat;

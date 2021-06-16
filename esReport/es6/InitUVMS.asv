@@ -52,6 +52,7 @@ uvms.JtargetDistance = [];
 uvms.JvehicleStop = [];
 uvms.JjointLimits = [];
 uvms.JpreferedShape = [];
+uvms.JvehicleControl = [];
 
 uvms.xdot.jl = [];
 uvms.xdot.mu = [];
@@ -69,6 +70,7 @@ uvms.xdot.vehicleStop = [];
 uvms.xdot.jointLimitsL = [];
 uvms.xdot.jointLimitsU = [];
 uvms.xdot.preferedShape = [];
+uvms.xdot.vehicleControl = [];
 
 
 uvms.A.jl = zeros(7,7);
@@ -87,6 +89,7 @@ uvms.A.vehicleStop = zeros(6,6);
 uvms.A.jointLimitsL = zeros(7,7);
 uvms.A.jointLimitsU = zeros(7,7);
 uvms.A.preferedShape = zeros(4,4);
+uvms.A.vehicleControl = zeros(6,6);
 
 %pay attention if initial value  (1) can be dangerous?!?
 uvms.Aa.vehiclePos = eye(3);
@@ -100,7 +103,8 @@ uvms.Aa.targetDistance = 0;
 uvms.Aa.vehicleStop = 0;
 uvms.Aa.jointLimits = 0;
 uvms.Aa.preferedShape = 0;
-
+uvms.Aa.tool = 0;
+uvms.Aa.vehicleControl = 0;
 
 %others
 uvms.v_rho = zeros(3,1);

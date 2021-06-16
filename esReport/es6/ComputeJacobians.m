@@ -98,5 +98,8 @@ uvms.JjointLimits = [eye(7), zeros(7,6)];
 %jacobian prefered shapes 
 uvms.JpreferedShape = [eye(4), zeros(4,9)];
 
+%jacobian totally non controllable
+uvms.JvehicleControl = [zeros(6,7), eye(6)];
+
 
 end
