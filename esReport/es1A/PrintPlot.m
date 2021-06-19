@@ -45,7 +45,37 @@ hplot = plot(plt.t, plt.p_dot((4: end),:));
 set(hplot, 'LineWidth', 1);
 legend('omega_x','omega_y','omega_z');
 
-    
+
+figure(6);
+hplot = plot(plt.t, plt.p((4: end),:));
+set(hplot, 'LineWidth', 1);
+legend('roll','pitch','yaw');
+title('vehicle orientation')
+xlabel('t (s)')
+ylabel('Attitude (rad)')
+
+figure(7);
+hplot = plot(plt.t, plt.p((1: 3),:));
+set(hplot, 'LineWidth', 1);
+legend('x','y','z');
+title('vehicle position')
+xlabel('t (s)')
+ylabel('Position (m)')
+
+figure(8);
+hplot = plot(plt.t, plt.a(9,:));
+set(hplot, 'LineWidth', 2);
+legend('Aha');  
+title('Afunction horizontal attitude')
+xlabel('t (s)')
+
+figure(9);
+hplot = plot(plt.t, plt.toolPos);
+set(hplot, 'LineWidth', 1);
+legend('x','y','z');
+title('tool position')
+xlabel('t (s)')
+ylabel('Position (m)')
 
 end
 

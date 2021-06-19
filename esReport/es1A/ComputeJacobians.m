@@ -40,7 +40,7 @@ uvms.Jt = [uvms.Jt_a uvms.Jt_v];
 w_kw = [0 0 1]';
 v_kv = [0 0 1]';
 v_kw = uvms.vTw(1:3,1:3) * w_kw;
-uvms.v_rho = ReducedVersorLemma(v_kw, v_kv); 
+uvms.v_rho = ReducedVersorLemma(v_kw, v_kv);
 if norm(uvms.v_rho) ~= 0
     v_n = uvms.v_rho/norm(uvms.v_rho);
 else
