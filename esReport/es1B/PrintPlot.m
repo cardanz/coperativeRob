@@ -50,7 +50,25 @@ hplot = plot(plt.t, plt.altitude(:,:));
 set(hplot, 'LineWidth', 1);
 legend('altitude');
 
-    
+figure(7);
+hplot = plot(plt.t, plt.p((1: 3),:));
+set(hplot, 'LineWidth', 1);
+legend('x','y','z');
+title('vehicle position')
+xlabel('t (s)')
+ylabel('Position (m)')
 
+figure(8);
+hplot = plot(plt.t, plt.a(10,:));
+set(hplot, 'LineWidth', 2);  
+title('Afunction vehicle altitude')
+xlabel('t (s)')
+
+figure(9);
+hplot = plot(plt.t, plt.altitude);
+set(hplot, 'LineWidth', 1);
+legend('vehicle altitude');  
+title('altitude')
+xlabel('t (s)')
 end
 
