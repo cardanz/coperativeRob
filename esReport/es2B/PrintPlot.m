@@ -50,7 +50,33 @@ hplot = plot(plt.t, plt.altitude(:,:));
 set(hplot, 'LineWidth', 1);
 legend('altitude');
 
-    
+figure(7);
+hplot = plot(plt.t, plt.p((1: 3),:));
+set(hplot, 'LineWidth', 1);
+legend('x','y','z');
+title('vehicle position')
+xlabel('t (s)')
+ylabel('Position (m)')
 
+figure(8);
+hplot = plot(plt.t, plt.a(10:11,:));
+set(hplot, 'LineWidth', 2);  
+legend('safety altitude','landing');
+title('Afunction vehicle altitude')
+xlabel('t (s)')
+
+figure(9);
+hplot = plot(plt.t, plt.altitude);
+set(hplot, 'LineWidth', 1);
+legend('vehicle altitude');  
+title('altitude')
+xlabel('t (s)')
+
+figure(10);
+hplot = plot(plt.t, plt.p_dot((1:3),:));
+set(hplot, 'LineWidth', 1);
+legend('xdot', 'ydot','zdot');
+xlabel('t (s)')
+ylabel('velocity (m/2)')
 end
 

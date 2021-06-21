@@ -122,6 +122,8 @@ for t = 0:deltat:end_time
     if (mod(t,0.1) == 0)
        uvms.p
        uvms.w_distance
+       t
+       mission.phase
        
     end
 
