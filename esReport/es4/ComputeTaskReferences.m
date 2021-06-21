@@ -16,12 +16,11 @@ uvms.xdot.ha = 0.2 * (0 - norm(uvms.v_rho));
 uvms.xdot.vehiclePos(1:3,:) = Saturate(0.7 * w_vlin, 0.7);
 uvms.xdot.vehicleAtt(1:3,:) = Saturate(0.2 * w_vang, 0.2);
 
-%reference for  safe altittude task 1 m
-uvms.xdot.vehicleAlt = 0.7 * (1.5 - uvms.w_distance);
-%reference for  safe altittude task 5 m
-%uvms.xdot.vehicleAlt = 0.7 * (5.5 - uvms.w_distance);
-%reference for  safe altittude task 10 m
-%uvms.xdot.vehicleAlt = 0.7 * (10.5 - uvms.w_distance);
+%value t = 1m, 5m, 10m;range 0.5m
+threshold = 1;
+range = 0.5;
+%reference for altittude task 1 m
+uvms.xdot.vehicleAlt = 1 * ((threshold + range) - uvms.w_distance);;
 
 %reference for landing action 
 uvms.xdot.vehicleAltLanding = 0.5 * (0 - uvms.w_distance);
@@ -31,6 +30,7 @@ uvms.xdot.vehiclehorAlignement = Saturate(0.3 * (0 - uvms.phi), 0.3);
 
 %reference tool distance
 uvms.xdot.targetDistance = Saturate(0.5 * (1.5 - norm(uvms.targetDistance)), 0.5);
+
 %stop vehicle
 uvms.xdot.vehicleStop = zeros(6,1);
 
