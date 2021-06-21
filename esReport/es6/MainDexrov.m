@@ -6,7 +6,7 @@ close all
 
 % Simulation variables (integration and final time)
 deltat = 0.005;
-end_time = 40;
+end_time = 30;
 loop = 1;
 maxloops = ceil(end_time/deltat);
 
@@ -91,8 +91,8 @@ for t = 0:deltat:end_time
     %toll control
     [Qp, rhop] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp, rhop, uvms.xdot.t,  0.0001,   0.01, 10);
     %optmization
-    [Qp, rhop] = iCAT_task(uvms.A.preferedShape,    uvms.JpreferedShape,    Qp, rhop, uvms.xdot.preferedShape,  0.0001,   0.01, 10);
-    [Qp, rhop] = iCAT_task(uvms.A.vehicleStop,    uvms.JvehicleStop,    Qp, rhop, uvms.xdot.vehicleStop,  0.0001,   0.01, 10);
+    %[Qp, rhop] = iCAT_task(uvms.A.preferedShape,    uvms.JpreferedShape,    Qp, rhop, uvms.xdot.preferedShape,  0.0001,   0.01, 10);
+    %[Qp, rhop] = iCAT_task(uvms.A.vehicleStop,    uvms.JvehicleStop,    Qp, rhop, uvms.xdot.vehicleStop,  0.0001,   0.01, 10);
 
     [Qp, rhop] = iCAT_task(eye(13),     eye(13),    Qp, rhop, zeros(13,1),  0.0001,   0.01, 10);    % this task should be the last one
     
@@ -107,11 +107,7 @@ for t = 0:deltat:end_time
     
     %[Qp, rhop] = iCAT_task(uvms.A.vehicleAlt,    uvms.JvehicleAlt,    Qp, rhop, uvms.xdot.vehicleAlt,  0.0001,   0.01, 10);
     [Qp2, rhop2] = iCAT_task(uvms.A.ha,   uvms.Jha,   Qp2, rhop2, uvms.xdot.ha, 0.0001,   0.01, 10);    
-    
-    %vehicle position
-    %[Qp, rhop] = iCAT_task(uvms.A.vehiclePos,    uvms.JvehiclePos,    Qp, rhop, uvms.xdot.vehiclePos,  0.0001,   0.01, 10);
-    %[Qp, rhop] = iCAT_task(uvms.A.vehicleAtt,    uvms.JvehicleAtt,    Qp, rhop, uvms.xdot.vehicleAtt,  0.0001,   0.01, 10);
-    
+   
     %toll control
     [Qp2, rhop2] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp2, rhop2, uvms.xdot.t,  0.0001,   0.01, 10);
     %optmization
@@ -120,11 +116,20 @@ for t = 0:deltat:end_time
 
     [Qp2, rhop2] = iCAT_task(eye(13),     eye(13),    Qp2, rhop2, zeros(13,1),  0.0001,   0.01, 10);    % this task should be the last one
     
-    % get the two variables for integration
-    uvms.q_dot = rhop2(1:7);
-    uvms.p_dot = rhop(8:13);
+    % get the two variables for integrations
+    q_dot = rhop2(1:7);
+    p_dot = rhop(8:13);
     % add noise
-    uvms.p_dot =  uvms.p_dot + sin(2*pi*0.7*t) * [0;1;1;0;0;0];
+    % sinusoidal velocity disturbance wrt world frame
+    a_x = 0.5;    % amplitude of the sine along x
+    a_y = 0.5;    % amplitude of the sine along y
+    dist = sin(pi*t)*[a_x a_y 0 0 0 0]';
+    % sinusoidal velocity disturbance wrt vehicle frame
+    noisePdot = [uvms.vTw(1:3,1:3)  zeros(3,3);zeros(3,3) uvms.vTw(1:3,1:3)]*dist;
+    uvms.q_dot = q_dot;        
+    uvms.p_dot = p_dot + noisePdot;
+    %
+    uvms.p_dot = rhop(8:13);
     
     % Integration
 	uvms.q = uvms.q + uvms.q_dot*deltat;
