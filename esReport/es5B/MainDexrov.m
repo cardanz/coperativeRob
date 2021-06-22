@@ -85,10 +85,6 @@ for t = 0:deltat:end_time
     %[Qp, rhop] = iCAT_task(uvms.A.vehicleAlt,    uvms.JvehicleAlt,    Qp, rhop, uvms.xdot.vehicleAlt,  0.0001,   0.01, 10);
     [Qp, rhop] = iCAT_task(uvms.A.ha,   uvms.Jha,   Qp, rhop, uvms.xdot.ha, 0.0001,   0.01, 10);    
     
-    %vehicle position
-    %[Qp, ydotbar] = iCAT_task(uvms.A.horAlignement,    uvms.JvehicleAllignement,    Qp, ydotbar, uvms.xdot.vehiclehorAlignement,  0.0001,   0.01, 10);
-    %[Qp, ydotbar] = iCAT_task(uvms.A.vehicleAltLanding,    uvms.JvehicleAlt,    Qp, ydotbar, uvms.xdot.vehicleAltLanding,  0.0001,   0.01, 10);
-    %[Qp, rhop] = iCAT_task(uvms.Aa.targetDistance,
     %uvms.JtargetDistance,    Qp, rhop, uvms.xdot.targetDistance,  0.0001,   0.01, 10);w
     [Qp, rhop] = iCAT_task(uvms.A.vehiclePos,    uvms.JvehiclePos,    Qp, rhop, uvms.xdot.vehiclePos,  0.0001,   0.01, 10);
     [Qp, rhop] = iCAT_task(uvms.A.vehicleAtt,    uvms.JvehicleAtt,    Qp, rhop, uvms.xdot.vehicleAtt,  0.0001,   0.01, 10);
@@ -124,8 +120,7 @@ for t = 0:deltat:end_time
     % add debug prints hereww
     if (mod(t,0.1) == 0)
         mission.phase
-        [ang, lin] = CartError(uvms.vTg , uvms.vTt);
-        norm(lin)
+        uvms.p
     end
     
     % enable this to have the simulation approximately evolving like real

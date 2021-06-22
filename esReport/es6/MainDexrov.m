@@ -46,8 +46,8 @@ uvms.q = [-0.0031 1.2586 0.0128 -1.2460 0.0137 0.0853-pi/2 0.0137]';
 % [x y z r(rot_x) p(rot_y) y(rot_z)]
 % RPY angles are applied in the following sequence
 % R(rot_x, rot_y, rot_z) = Rz (rot_z) * Ry(rot_y) * Rx(rot_x)
-uvms.p = [-1.9379 10.4813-6.1 -29.7242-0.1 0 0 0]';
-
+%uvms.p = [-1.9379 10.4813-6.1 -29.7242-0.1 0 0 0]';
+uvms.p = [ -1.9285, 10.6400, -29.3145, 0.0209, -0.1359,  -0.0206]';
 % initial goal position definition
 % slightly over the top of the pipe
 distanceGoalWrtPipe = 0.3;
@@ -57,12 +57,11 @@ uvms.wTg = [uvms.wRg uvms.goalPosition; 0 0 0 1];
 
 %vehicle goal position
 %define the goal position for the vehicle
-distanceVehicleWrtPipe = 3;
+distanceVehicleWrtPipe = 2;
 uvms.vehicleGoalPosition = pipe_center + (pipe_radius + distanceVehicleWrtPipe)*[0 0 1]';
 uvms.wRgvehicle = rotation(0, 0, 0);
 %goal frame w.r.t world frameas
 uvms.wTgvehicle = [uvms.wRgvehicle uvms.vehicleGoalPosition; 0 0 0 1];
-
 
 % defines the tool control point
 uvms.eTt = eye(4);
@@ -78,41 +77,27 @@ for t = 0:deltat:end_time
     % rhop order is [qdot_1, qdot_2, ..., qdot_7, xdot, ydot, zdot, omega_x, omega_y, omega_z]
     rhop = zeros(13,1);
     Qp = eye(13); 
-    % the sequence of iCAT_task calls defines the priority
-    
     %safety tasks
-    %[Qp, rhop] = iCAT_task(uvms.A.vehicleAlt,    uvms.JvehicleAlt,    Qp, rhop, uvms.xdot.vehicleAlt,  0.0001,   0.01, 10);
     [Qp, rhop] = iCAT_task(uvms.A.ha,   uvms.Jha,   Qp, rhop, uvms.xdot.ha, 0.0001,   0.01, 10);    
-    
-    %vehicle position
-    %[Qp, rhop] = iCAT_task(uvms.A.vehiclePos,    uvms.JvehiclePos,    Qp, rhop, uvms.xdot.vehiclePos,  0.0001,   0.01, 10);
-    %[Qp, rhop] = iCAT_task(uvms.A.vehicleAtt,    uvms.JvehicleAtt,    Qp, rhop, uvms.xdot.vehicleAtt,  0.0001,   0.01, 10);
-    
     %toll control
     [Qp, rhop] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp, rhop, uvms.xdot.t,  0.0001,   0.01, 10);
     %optmization
-    %[Qp, rhop] = iCAT_task(uvms.A.preferedShape,    uvms.JpreferedShape,    Qp, rhop, uvms.xdot.preferedShape,  0.0001,   0.01, 10);
+    [Qp, rhop] = iCAT_task(uvms.A.preferedShape,    uvms.JpreferedShape,    Qp, rhop, uvms.xdot.preferedShape,  0.0001,   0.01, 10);
     %[Qp, rhop] = iCAT_task(uvms.A.vehicleStop,    uvms.JvehicleStop,    Qp, rhop, uvms.xdot.vehicleStop,  0.0001,   0.01, 10);
 
     [Qp, rhop] = iCAT_task(eye(13),     eye(13),    Qp, rhop, zeros(13,1),  0.0001,   0.01, 10);    % this task should be the last one
-    
-    
     % rhop order is [qdot_1, qdot_2, ..., qdot_7, xdot, ydot, zdot, omega_x, omega_y, omega_z]
     rhop2 = zeros(13,1);
     Qp2 = eye(13); 
-    % the sequence of iCAT_task calls defines the priority
-    
     %vehicle control
     [Qp2, rhop2] = iCAT_task(uvms.A.vehicleControl,   uvms.JvehicleControl,   Qp2, rhop2, uvms.xdot.vehicleControl, 0.0001,   0.01, 10);   
-    
-    %[Qp, rhop] = iCAT_task(uvms.A.vehicleAlt,    uvms.JvehicleAlt,    Qp, rhop, uvms.xdot.vehicleAlt,  0.0001,   0.01, 10);
     [Qp2, rhop2] = iCAT_task(uvms.A.ha,   uvms.Jha,   Qp2, rhop2, uvms.xdot.ha, 0.0001,   0.01, 10);    
    
     %toll control
     [Qp2, rhop2] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp2, rhop2, uvms.xdot.t,  0.0001,   0.01, 10);
     %optmization
     [Qp2, rhop2] = iCAT_task(uvms.A.preferedShape,    uvms.JpreferedShape,    Qp2, rhop2, uvms.xdot.preferedShape,  0.0001,   0.01, 10);
-    [Qp2, rhop2] = iCAT_task(uvms.A.vehicleStop,    uvms.JvehicleStop,    Qp2, rhop2, uvms.xdot.vehicleStop,  0.0001,   0.01, 10);
+    %[Qp2, rhop2] = iCAT_task(uvms.A.vehicleStop,    uvms.JvehicleStop,    Qp2, rhop2, uvms.xdot.vehicleStop,  0.0001,   0.01, 10);
 
     [Qp2, rhop2] = iCAT_task(eye(13),     eye(13),    Qp2, rhop2, zeros(13,1),  0.0001,   0.01, 10);    % this task should be the last one
     
@@ -127,10 +112,7 @@ for t = 0:deltat:end_time
     % sinusoidal velocity disturbance wrt vehicle frame
     noisePdot = [uvms.vTw(1:3,1:3)  zeros(3,3);zeros(3,3) uvms.vTw(1:3,1:3)]*dist;
     uvms.q_dot = q_dot;        
-    uvms.p_dot = p_dot + noisePdot;
-    %
-    uvms.p_dot = rhop(8:13);
-    
+    uvms.p_dot = p_dot + noisePdot;   
     % Integration
 	uvms.q = uvms.q + uvms.q_dot*deltat;
     % beware: p_dot should be projected on <v>
