@@ -57,6 +57,7 @@ legend('x','y','z');
 title('vehicle position')
 xlabel('t (s)')
 ylabel('Position (m)')
+ylim([-50 50])
 
 figure(8);
 hplot = plot(plt.t, plt.a(10:11,:));
@@ -78,5 +79,13 @@ set(hplot, 'LineWidth', 1);
 legend('xdot', 'ydot','zdot');
 xlabel('t (s)')
 ylabel('velocity (m/2)')
+
+figure(10);
+hplot = plot(plt.t, plt.mission);
+set(hplot, 'LineWidth', 1);
+legend('mission');
+xlabel('t (s)')
+
+
 end
 
