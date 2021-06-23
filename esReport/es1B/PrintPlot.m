@@ -57,6 +57,7 @@ legend('x','y','z');
 title('vehicle position')
 xlabel('t (s)')
 ylabel('Position (m)')
+ylim([-40 60])
 
 figure(8);
 hplot = plot(plt.t, plt.a(10,:));

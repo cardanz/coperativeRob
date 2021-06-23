@@ -20,7 +20,7 @@ uvms.xdot.vehicleAtt(1:3,:) = Saturate(0.2 * w_vang, 0.2);
 threshold = 10;
 range = 0.5;
 %reference for altittude task 1 m
-uvms.xdot.vehicleAlt = 1 * ((threshold + range) - uvms.w_distance);
+uvms.xdot.vehicleAlt = Saturate(0.7 * ((threshold + range) - uvms.w_distance), 0.7);
 
 
 %print var
