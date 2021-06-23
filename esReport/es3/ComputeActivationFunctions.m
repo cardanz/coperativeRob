@@ -43,12 +43,9 @@ uvms.A.vehicleAtt = eye(3) * uvms.Aa.vehicleAtt;
 
 % exampl activation function vehicle altitude(for sure about 1m, and i don't care
 %over 1.5 m DecreasingBellShapedFunction(1, 1.5, 0, 1, uvms.sensorDistance);
-% 1 m
-uvms.A.vehicleAlt = DecreasingBellShapedFunction(1, 1.5, 0, 1, uvms.w_distance) * uvms.Aa.vehicleAlt;
-% 5 m
-%uvms.A.vehicleAlt = DecreasingBellShapedFunction(5, 5.5, 0, 1, uvms.w_distance);
-% 10 m
-%uvms.A.vehicleAlt = DecreasingBellShapedFunction(10, 10.5, 0, 1, uvms.w_distance);
+threshold = 1;
+range = 0.5;
+uvms.A.vehicleAlt = DecreasingBellShapedFunction(threshold, (threshold + range), 0, 1, uvms.w_distance) * uvms.Aa.vehicleAlt;
 
 %landing activation function 
 uvms.A.vehicleAltLanding = 1 * uvms.Aa.vehicleAltLanding;
