@@ -11,22 +11,13 @@ switch mission.phase
             uvms.Aa.horAlignement = zeros(3,3);
                 
         case 2
-            % point to the rock
+            % point to the rock and land
             uvms.Aa.horAlignement = IncreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time);
             uvms.Aa.vehicleAtt = DecreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time) * eye(3);
-            uvms.Aa.vehicleAlt = 1;
-            uvms.Aa.vehiclePos =  eye(3);
-            uvms.Aa.vehicleAltLanding = 0; 
-            uvms.Aa.ha = 1;
-        case 3
-            % activate landing disable others, maintain ha
-            uvms.Aa.horAlignement = 1;
-            uvms.Aa.vehicleAtt = 0 * eye(3);
             uvms.Aa.vehicleAlt = DecreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time);
             uvms.Aa.vehiclePos = DecreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time) * eye(3);
             uvms.Aa.vehicleAltLanding = IncreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time); 
-            uvms.Aa.ha = 1;
-                  
+            uvms.Aa.ha = 1;                       
 end
 
 % arm tool position control

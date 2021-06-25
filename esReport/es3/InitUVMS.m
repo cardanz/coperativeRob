@@ -82,9 +82,8 @@ uvms.Aa.vehicleAlt = 1;
 uvms.Aa.vehicleAltLanding = 0;
 uvms.Aa.horAlignement = 1;
 %others
-uvms.v_rho = zeros(3,1);
-uvms.phi = 0;
-
+uvms.theta = 0;
+uvms.w_distance = 0;
 %printValue
 uvms.wAng = 0;
 uvms.wLin = 0;
