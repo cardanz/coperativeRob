@@ -8,7 +8,7 @@ switch mission.phase
             uvms.Aa.ha = 1;
             uvms.Aa.vehicleAlt = 1;
             uvms.Aa.vehicleAltLanding = 0; 
-            uvms.Aa.horAlignement = zeros(3,3);
+            uvms.Aa.horAlignement = 0;
                 
         case 2
             % point to the rock and land
@@ -41,6 +41,6 @@ uvms.A.vehicleAlt = DecreasingBellShapedFunction(threshold, (threshold + range),
 %landing activation function 
 uvms.A.vehicleAltLanding = 1 * uvms.Aa.vehicleAltLanding;
 %
-uvms.A.horAlignement = 1;
+uvms.A.horAlignement = 1 * uvms.Aa.horAlignement;
 
 
