@@ -39,12 +39,11 @@ uvms.Jt = [uvms.Jt_a uvms.Jt_v];
 w_kw = [0 0 1]';
 v_kv = [0 0 1]';
 v_kw = uvms.vTw(1:3,1:3) * w_kw;
-uvms.v_rho = ReducedVersorLemma(v_kw, v_kv);
-if norm(uvms.v_rho) ~= 0
-    v_n = uvms.v_rho/norm(uvms.v_rho);
-else
-    v_n = [0, 0, 0]';
-end 
+
+%misallinement
+uvms.v_rho = ReducedVersorLemma(v_kw, v_kv); 
+%the angle
+v_n = uvms.v_rho/norm(uvms.v_rho);
 
 uvms.Jha = [zeros(1,7), zeros(1,3), v_n'];
 
@@ -63,38 +62,31 @@ uvms.JvehicleAlt = [zeros(1,7) w_kw' * uvms.wTv(1:3, 1:3) zeros(1,3)];
 
 %jacobian for alignment to target 
 % rock position 
-rock_center = [12.2025   37.3748  -39.8860]';
-%distance vector beetween rock and vehicle on world
+rock_center = [12.2025   37.3748  -39.8860]'; % in world frame coordinates
 w_distRockVehicle = rock_center - uvms.wTv(1:3, 4);
-w_distRockVehicleProjected = w_distRockVehicle - w_kw * (w_kw' * w_distRockVehicle);
-if norm(w_distRockVehicleProjected) ~= 0
-    %the vector have some component in xy, calculate the versor
-    w_distRockVehiclePlanVersor = w_distRockVehicleProjected/norm(w_distRockVehicleProjected);
+w_distRockVehicleP = w_distRockVehicle - ((w_distRockVehicle' * w_kw) * w_kw);
+if norm(w_distRockVehicleP) ~= 0
+    w_distRockVehiclePlanV = w_distRockVehicleP/norm(w_distRockVehicleP);
 else
-    w_distRockVehiclePlanVersor = [0, 0, 0]';
+    w_distRockVehiclePlanV = [0, 0, 0]';
 end
 
-%for jacobian matrix <v>
-v_distRockVehiclePlanVector = uvms.vTw(1:3, 1:3) * w_distRockVehicleProjected;
-v_distRockVehiclePlanVersor = uvms.vTw(1:3, 1:3) * w_distRockVehiclePlanVersor;
+v_distRockVehiclePlanV = uvms.vTw(1:3, 1:3) * w_distRockVehiclePlanV ;
 %misallinement
-rho = ReducedVersorLemma([1,0,0]', v_distRockVehiclePlanVersor); 
-%avoid error
-if norm(rho) ~= 0
-    n = rho/norm(rho);
+misallinement = ReducedVersorLemma([1,0,0]', v_distRockVehiclePlanV); 
+if norm(misallinement) ~= 0
+    rho =misallinement/norm(misallinement);
 else
-    n = [0, 0, 0]';
+    rho = [0, 0, 0]';
 end    
-uvms.theta = norm(rho);
-uvms.JvehicleAllignement = n' *  [zeros(3, 7),  -(1 / (norm(v_distRockVehiclePlanVector) * norm(v_distRockVehiclePlanVector))) * skew(v_distRockVehiclePlanVector), -eye(3)];
+uvms.phi = norm(misallinement);
+uvms.JvehicleAllignement = rho' * [zeros(3, 7),  -(1 / (norm(v_distRockVehiclePlanV) * norm(v_distRockVehiclePlanV))) * skew(v_distRockVehiclePlanV), -eye(3)];
 
 %jacobian goal in workspace
 uvms.targetDistance = rock_center(1:2) - uvms.p(1:2);
 uvms.JtargetDistance = [zeros(1,7) -(1/norm(uvms.targetDistance)) * [uvms.targetDistance', 0] * uvms.wTv(1:3, 1:3) zeros(1,3)];
-    
+
 %jacobian stop vehicle 
 uvms.JvehicleStop = [zeros(6,7), eye(6)];
 
 end
-
-
