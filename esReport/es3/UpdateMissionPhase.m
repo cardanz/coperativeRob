@@ -8,6 +8,11 @@ function [uvms, mission] = UpdateMissionPhase(uvms, mission)
                 mission.phase_time = 0;
             end
          case 2
+             if(uvms.w_distance < 0.01)
+                 mission.phase = 3;
+                mission.phase_time = 0;
+             end
+         case 3
           
              
         
