@@ -48,6 +48,8 @@ uvms.JvehiclePos = [];
 uvms.JvehicleAtt = [];
 uvms.JvehicleAltitude = [];
 uvms.JvehicleAllignement = [];
+uvms.JtargetDistance = [];
+uvms.JvehicleStop = []
 
 uvms.xdot.jl = [];
 uvms.xdot.mu = [];
@@ -60,7 +62,8 @@ uvms.xdot.vehicleAtt = [];
 uvms.xdot.vehicleAlt = [];
 uvms.xdot.vehicleAltLanding = [];
 uvms.xdot.vehiclehorAlignement = [];
-
+uvms.xdot.targetDistance =[];
+uvms.xdot.vehicleStop = []
     
 uvms.A.jl = zeros(7,7);
 uvms.A.mu = 0;
@@ -73,18 +76,26 @@ uvms.A.vehicleAlt = zeros(1,1);
 uvms.A.ha = 0;
 uvms.A.vehicleAltLanding = 0;
 uvms.A.horAlignement = 0;
+uvms.A.targetDistance = 0;
+uvms.A.vehicleStop = zeros(6,6);
+
 
 %pay attention if initial value  (1) can be dangerous?!?
 uvms.Aa.vehiclePos = eye(3);
 uvms.Aa.vehicleAtt = eye(3);
-uvms.Aa.ha = 0;
+uvms.Aa.ha = 1;
 uvms.Aa.vehicleAlt = 0;
 uvms.Aa.vehicleAltLanding = 0;
 uvms.Aa.horAlignement = 0;
 uvms.Aa.t = 0;
+uvms.Aa.targetDistance = 0;
+uvms.Aa.vehicleStop = 0;
+
 %others
-uvms.theta = 0;
-uvms.w_distance = 0;
+uvms.v_rho = zeros(3,1);
+uvms.phi = 0;
+uvms.targetDistance = zeros(2,1);
+
 %printValue
 uvms.wAng = 0;
 uvms.wLin = 0;

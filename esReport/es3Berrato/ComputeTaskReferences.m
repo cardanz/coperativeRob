@@ -9,7 +9,7 @@ uvms.xdot.t(1:3) = Saturate(uvms.xdot.t(1:3), 0.2);
 uvms.xdot.t(4:6) = Saturate(uvms.xdot.t(4:6), 0.2);
 
 %i wish to drive the angle to zero
-uvms.xdot.ha = 0.1 * (0 - norm(uvms.v_rho));
+uvms.xdot.ha = 0.2 * (0 - norm(uvms.v_rho));
 
 %error between goal and vehicle position and orientation projected on <w>
 [w_vang, w_vlin] = CartError(uvms.wTgvehicle , uvms.wTv);
@@ -26,7 +26,12 @@ uvms.xdot.vehicleAlt = Saturate(0.7 * ((threshold + range) - uvms.w_distance),0.
 uvms.xdot.vehicleAltLanding = 0.5 * (0 - uvms.w_distance);
 
 %reference for horizontal alignment
-uvms.xdot.vehiclehorAlignement = Saturate(0.5 * (0 - uvms.theta), 0.5);
+uvms.xdot.vehiclehorAlignement = Saturate(0.3 * (0 - uvms.phi), 0.3);
+
+%reference tool distance
+uvms.xdot.targetDistance = Saturate(0.5 * (1.5 - norm(uvms.targetDistance)), 0.5);
+%stop vehicle
+uvms.xdot.vehicleStop = zeros(6,1);
 
 %print var
 uvms.wAng = w_vang;
