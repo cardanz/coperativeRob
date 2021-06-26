@@ -31,6 +31,9 @@ uvms.xdot.vehiclehorAlignement = Saturate(0.5 * (0 - uvms.theta), 0.5);
 %reference tool distance
 uvms.xdot.targetDistance = Saturate(0.5 * (1.5 - norm(uvms.targetDistance)), 0.5);
 
+%reference stop vehicle
+uvms.xdot.vehicleStop = zeros(6,1);
+
 
 %print var
 uvms.wAng = w_vang;
