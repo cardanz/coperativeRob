@@ -43,18 +43,27 @@ uvms.Jt_a = [];
 uvms.Jt_v = [];
 uvms.Jt = [];
 uvms.JpreferedShape = [];
+uvms.JjointLimits = []; 
 
 uvms.xdot.jl = [];
 uvms.xdot.mu = [];
 uvms.xdot.ha = [];
 uvms.xdot.t = [];
 uvms.xdot.preferedShape = [];
+uvms.xdot.jointLimitsL = [];
+uvms.xdot.jointLimitsU = [];
     
 uvms.A.jl = zeros(7,7);
 uvms.A.mu = 0;
 uvms.A.ha = 0;
 uvms.A.t = zeros(6,6);
 uvms.A.preferedShape = zeros(4,4);
+uvms.A.jointLimitsL = zeros(7,7);
+uvms.A.jointLimitsU = zeros(7,7);
+
+%others
+uvms.rangeJoint = 0.3;
+
 
 end
 

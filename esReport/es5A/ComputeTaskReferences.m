@@ -14,3 +14,9 @@ uvms.xdot.ha = 0.2 * (0 - norm(uvms.v_rho));
 %prefered shapes
 prefSetting = [-0.0031 1.2586 0.0128 -1.2460]';
 uvms.xdot.preferedShape = prefSetting - uvms.q(1:4);
+
+%joint limits lower
+uvms.xdot.jointLimitsL = Saturate(0.3 * ((uvms.jlmin + uvms.rangeJoint) -uvms.q), 0.3);
+%joint limits upper
+uvms.xdot.jointLimitsU = Saturate(0.3 * ((uvms.jlmax - uvms.rangeJoint) -uvms.q), 0.3);
+

@@ -51,4 +51,7 @@ uvms.Jha = [zeros(1,7), zeros(1,3), v_n'];
 %jacobian prefered shapes 
 uvms.JpreferedShape = [eye(4), zeros(4,9)];
 
+%jacobian for join limits 
+uvms.JjointLimits = [eye(7), zeros(7,6)];
+
 end
