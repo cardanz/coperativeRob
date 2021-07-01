@@ -34,11 +34,6 @@ uvms.xdot.targetDistance = Saturate(0.5 * (1.5 - norm(uvms.targetDistance)), 0.5
 %reference stop vehicle
 uvms.xdot.vehicleStop = zeros(6,1);
 
-%joint limits lower
-uvms.xdot.jointLimitsL = Saturate(0.3 * ((uvms.jlmin + uvms.rangeJoint) -uvms.q), 0.3);
-%joint limits upper
-uvms.xdot.jointLimitsU = Saturate(0.3 * ((uvms.jlmax - uvms.rangeJoint) -uvms.q), 0.3);
-
 
 %print var
 uvms.wAng = w_vang;

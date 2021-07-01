@@ -54,8 +54,7 @@ uvms.p = [8.5    38.5 -36    0 -0.06    0.5]';
 
 % defines the goal position for the end-effector/tool position task
 uvms.goalPosition = [12.2025   37.3748  -39.8860]';
-%uvms.wRg = rotation(0, pi, pi/2);
-uvms.wRg = rotation(pi/4, pi/3, pi/2); %test configuration
+uvms.wRg = rotation(0, pi, pi/2);
 uvms.wTg = [uvms.wRg uvms.goalPosition; 0 0 0 1];
 
 %define the goal position for the vehicle 
@@ -91,10 +90,6 @@ for t = 0:deltat:end_time
     [Qp, ydotbar] = iCAT_task(uvms.A.ha,    uvms.Jha,    Qp, ydotbar, uvms.xdot.ha,  0.0001,   0.01, 10);
     
     [Qp, ydotbar] = iCAT_task(uvms.A.vehicleStop,    uvms.JvehicleStop,    Qp, ydotbar, uvms.xdot.vehicleStop,  0.0001,   0.01, 10);
-    
-    [Qp, ydotbar] = iCAT_task(uvms.A.jointLimitsL,    uvms.JjointLimits,    Qp, ydotbar, uvms.xdot.jointLimitsL,  0.0001,   0.01, 10);
-    [Qp, ydotbar] = iCAT_task(uvms.A.jointLimitsU,    uvms.JjointLimits,    Qp, ydotbar, uvms.xdot.jointLimitsU,  0.0001,   0.01, 10);
-
 
     [Qp, ydotbar] = iCAT_task(uvms.A.horAlignement,    uvms.JvehicleAllignement,    Qp, ydotbar, uvms.xdot.vehiclehorAlignement,  0.0001,   0.01, 10);
     [Qp, ydotbar] = iCAT_task(uvms.Aa.targetDistance,    uvms.JtargetDistance,    Qp, ydotbar, uvms.xdot.targetDistance,  0.0001,   0.01, 10);
@@ -107,12 +102,20 @@ for t = 0:deltat:end_time
     [Qp, ydotbar] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp, ydotbar, uvms.xdot.t,  0.0001,   0.01, 10);
     [Qp, ydotbar] = iCAT_task(eye(13),     eye(13),    Qp, ydotbar, zeros(13,1),  0.0001,   0.01, 10);    % this task should be the last one
     
+    %currents noise
+    ampX = 0.5; 
+    ampY = 0.5;
+    noise = sin(2 * pi * 0.5 * t) * [ampX ampY 0 0 0 0]';
+    % dist w.r.t <v>
+    noisePdot = [uvms.vTw(1:3,1:3)  zeros(3,3);zeros(3,3) uvms.vTw(1:3,1:3)]*noise;  
+    
     % get the two variables for integration
     uvms.q_dot = ydotbar(1:7);
-    uvms.p_dot = ydotbar(8:13);
+    uvms.p_dot = ydotbar(8:13) + noisePdot;   
     
     % Integration
 	uvms.q = uvms.q + uvms.q_dot*deltat;
+    % beware: p_dot should be projected on <v>
     uvms.p = integrate_vehicle(uvms.p, uvms.p_dot, deltat);
     
     % check if the mission phase should be changed
@@ -129,9 +132,9 @@ for t = 0:deltat:end_time
     % add debug prints here
     if (mod(t,0.1) == 0)
        phase = mission.phase
-       [ang, lin] = CartError(uvms.vTg , uvms.vTt);
-       angular = ang 
-       linera = lin
+       target_distance = norm(uvms.targetDistance)
+       altitude = uvms.w_distance
+      
        
     end
 

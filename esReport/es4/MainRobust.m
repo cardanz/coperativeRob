@@ -59,7 +59,7 @@ uvms.wTg = [uvms.wRg uvms.goalPosition; 0 0 0 1];
 
 %define the goal position for the vehicle 
 uvms.vehicleGoalPosition = [10.5   37.5  -38]';
-uvms.wRgvehicle = rotation(0, -0.06,    pi);
+uvms.wRgvehicle = rotation(0, -0.06,    0.5);
 %goal frame w.r.t world frameas
 uvms.wTgvehicle = [uvms.wRgvehicle uvms.vehicleGoalPosition; 0 0 0 1];
 
@@ -125,9 +125,8 @@ for t = 0:deltat:end_time
     % add debug prints here
     if (mod(t,0.1) == 0)
        phase = mission.phase
-       angle = uvms.theta
        target_distance = norm(uvms.targetDistance)
-       rif = uvms.xdot.targetDistance
+       altitude = uvms.w_distance
       
        
     end
