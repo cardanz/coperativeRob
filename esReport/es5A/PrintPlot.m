@@ -76,7 +76,7 @@ set(hplot, 'LineWidth',1, 'LineStyle','--','Color','r');
 hold on
 hplot = plot(plt.t,desiredShape(2,:));
 set(hplot, 'LineWidth',1, 'LineStyle',':','Color','r');
-legend('q1','qMin1','qMax1','desired'); 
+legend('q2','qMin2','qMax2','desired'); 
 %3
 subplot(4,1,3);
 hplot = plot(plt.t,plt.q(3,:));
@@ -90,11 +90,10 @@ set(hplot, 'LineWidth',1, 'LineStyle','--');
 hold on
 hplot = plot(plt.t,printMax(3,:));
 set(hplot, 'LineWidth',1, 'LineStyle','--','Color','r');
-legend('q3','qMin3','qMax3'); 
 hold on
 hplot = plot(plt.t,desiredShape(3,:));
 set(hplot, 'LineWidth',1, 'LineStyle',':','Color','r');
-legend('q1','qMin1','qMax1','desired'); 
+legend('q3','qMin3','qMax3','desired'); 
 
 %4
 subplot(4,1,4);
@@ -109,11 +108,10 @@ set(hplot, 'LineWidth',1, 'LineStyle','--');
 hold on
 hplot = plot(plt.t,printMax(4,:));
 set(hplot, 'LineWidth',1, 'LineStyle','--','Color','r');
-legend('q4','qMin4','qMax4'); 
 hold on
 hplot = plot(plt.t,desiredShape(4,:));
 set(hplot, 'LineWidth',1, 'LineStyle',':','Color','r');
-legend('q1','qMin1','qMax1','desired');
+legend('q4','qMin4','qMax4','desired');
 %5
 figure(11);
 subplot(3,1,1);

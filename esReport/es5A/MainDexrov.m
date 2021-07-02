@@ -39,8 +39,8 @@ uvms = InitUVMS('DexROV');
 % uvms.q 
 % Initial joint positions. You can change these values to initialize the simulation with a 
 % different starting position for the arm
-%uvms.q = [-0.0031 1.2586 0.0128 -1.2460 0.0137 0.0853-pi/2 0.0137]';
-uvms.q = [-1.0031 0.2586 1.0128 -2.2460 0.0137 0.0853-pi/2 0.0137]';
+uvms.q = [-0.0031 1.2586 0.0128 -1.2460 0.0137 0.0853-pi/2 0.0137]';
+%uvms.q = [-1.0031 0.2586 1.0128 -2.2460 0.0137 0.0853-pi/2 0.0137]';
 % uvms.p
 % initial position of the vehicle
 % the vector contains the values in the following order
@@ -77,7 +77,7 @@ for t = 0:deltat:end_time
     [Qp, rhop] = iCAT_task(uvms.A.jointLimitsU,    uvms.JjointLimits,    Qp, rhop, uvms.xdot.jointLimitsU,  0.0001,   0.01, 10);
     
     [Qp, rhop] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp, rhop, uvms.xdot.t,  0.0001,   0.01, 10);
-    [Qp, rhop] = iCAT_task(uvms.A.preferedShape,    uvms.JpreferedShape,    Qp, rhop, uvms.xdot.preferedShape,  0.0001,   0.01, 10);
+    %[Qp, rhop] = iCAT_task(uvms.A.preferedShape,    uvms.JpreferedShape,    Qp, rhop, uvms.xdot.preferedShape,  0.0001,   0.01, 10);
     [Qp, rhop] = iCAT_task(eye(13),     eye(13),    Qp, rhop, zeros(13,1),  0.0001,   0.01, 10);    % this task should be the last one
     
     % get the two variables for integration
