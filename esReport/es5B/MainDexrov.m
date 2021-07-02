@@ -84,8 +84,9 @@ for t = 0:deltat:end_time
     %safety tasks
     %[Qp, rhop] = iCAT_task(uvms.A.vehicleAlt,    uvms.JvehicleAlt,    Qp, rhop, uvms.xdot.vehicleAlt,  0.0001,   0.01, 10);
     [Qp, rhop] = iCAT_task(uvms.A.ha,   uvms.Jha,   Qp, rhop, uvms.xdot.ha, 0.0001,   0.01, 10);    
+    [Qp, rhop] = iCAT_task(uvms.A.jointLimitsL,    uvms.JjointLimits,    Qp, rhop, uvms.xdot.jointLimitsL,  0.0001,   0.01, 10);
+    [Qp, rhop] = iCAT_task(uvms.A.jointLimitsU,    uvms.JjointLimits,    Qp, rhop, uvms.xdot.jointLimitsU,  0.0001,   0.01, 10);  
     
-    %uvms.JtargetDistance,    Qp, rhop, uvms.xdot.targetDistance,  0.0001,   0.01, 10);w
     [Qp, rhop] = iCAT_task(uvms.A.vehiclePos,    uvms.JvehiclePos,    Qp, rhop, uvms.xdot.vehiclePos,  0.0001,   0.01, 10);
     [Qp, rhop] = iCAT_task(uvms.A.vehicleAtt,    uvms.JvehicleAtt,    Qp, rhop, uvms.xdot.vehicleAtt,  0.0001,   0.01, 10);
     
@@ -120,7 +121,9 @@ for t = 0:deltat:end_time
     % add debug prints hereww
     if (mod(t,0.1) == 0)
         mission.phase
-        uvms.p
+        [ang, lin] = CartError(uvms.vTg , uvms.vTt);
+        angular = ang
+        linear = lin
     end
     
     % enable this to have the simulation approximately evolving like real

@@ -106,7 +106,7 @@ uvms.Aa.tool = 0;
 uvms.v_rho = zeros(3,1);
 uvms.phi = 0;
 uvms.targetDistance = zeros(2,1);
-uvms.offsetJoint = 0.3;
+uvms.rangeJoint = 0.3;
 
 %printValue
 uvms.wAng = 0;

@@ -16,29 +16,14 @@ uvms.xdot.ha = 0.2 * (0 - norm(uvms.v_rho));
  uvms.xdot.vehiclePos(1:3,:) = Saturate(0.7 * w_vlin, 0.7);
  uvms.xdot.vehicleAtt(1:3,:) = Saturate(0.2 * w_vang, 0.2);
 
-%reference for  safe altittude task 1 m
-%uvms.xdot.vehicleAlt = 0.7 * (1.5 - uvms.w_distance);
-%reference for  safe altittude task 5 m
-%uvms.xdot.vehicleAlt = 0.7 * (5.5 - uvms.w_distance);
-%reference for  safe altittude task 10 m
-%uvms.xdot.vehicleAlt = 0.7 * (10.5 - uvms.w_distance);
-
-% %reference for landing action 
-% uvms.xdot.vehicleAltLanding = 0.5 * (0 - uvms.w_distance);
-% 
-% %reference for horizontal alignment
-% uvms.xdot.vehiclehorAlignement = Saturate(0.3 * (0 - uvms.phi), 0.3);
-% 
-% %reference tool distance
- %uvms.xdot.targetDistance = Saturate(0.5 * (1.5 - norm(uvms.targetDistance)), 0.5);
-% 
 %stop vehicle
 uvms.xdot.vehicleStop = zeros(6,1);
 
-%joint limits
-% uvms.xdot.jointLimitsL = Saturate(0.5 * (uvms.jlmin + uvms.offsetJoint), 0.5);
-% uvms.xdot.jointLimitsU = Saturate(0.5 * (uvms.jlmax - uvms.offsetJoint), 0.5);
-% 
+%joint limits lower
+uvms.xdot.jointLimitsL = Saturate(0.3 * ((uvms.jlmin + uvms.rangeJoint) -uvms.q), 0.3);
+%joint limits upper
+uvms.xdot.jointLimitsU = Saturate(0.3 * ((uvms.jlmax - uvms.rangeJoint) -uvms.q), 0.3);
+
 %prefered shapes
 prefSetting = [-0.0031 1.2586 0.0128 -1.2460]';
 uvms.xdot.preferedShape = prefSetting - uvms.q(1:4);
