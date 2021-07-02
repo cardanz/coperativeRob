@@ -1,24 +1,15 @@
 function [uvms] = ComputeActivationFunctions(uvms, mission)
 % compute the activation functions here
 switch mission.phase
-        case 1  
-            %during phase 1 safe navigation
-            %uvms.Aa.vehiclePos = eye(3);
-            %uvms.Aa.vehicleAtt = eye(3);
+        case 1                       
             uvms.Aa.ha = 1;
-            %add vehicle min altitude
-            %uvms.Aa.vehicleStop = 0;
+            uvms.Aa.vehiclePos =  0 * eye(3);
+            uvms.Aa.vehicleAtt = 0 * eye(3);
+            uvms.Aa.vehicleStop = 1;
             uvms.Aa.preferedShape = 1;
             uvms.Aa.tool = 1;
+            uvms.Aa.jointLimits = 1;
             uvms.Aa.vehicleControl = 1;
-            
-        case 2
-            uvms.Aa.ha = 1;
-            uvms.Aa.vehiclePos =  DecreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time) * eye(3);
-            uvms.Aa.vehicleAtt = DecreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time) * eye(3);
-            uvms.Aa.vehicleStop = IncreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time);
-            uvms.Aa.preferedShape = IncreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time);
-            uvms.Aa.tool = IncreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time);
 end
 
 % arm tool position control

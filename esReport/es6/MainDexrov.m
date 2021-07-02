@@ -47,7 +47,7 @@ uvms.q = [-0.0031 1.2586 0.0128 -1.2460 0.0137 0.0853-pi/2 0.0137]';
 % RPY angles are applied in the following sequence
 % R(rot_x, rot_y, rot_z) = Rz (rot_z) * Ry(rot_y) * Rx(rot_x)
 %uvms.p = [-1.9379 10.4813-6.1 -29.7242-0.1 0 0 0]';
-uvms.p = [ -1.9285, 10.6400, -29.3145, 0.0209, -0.1359,  -0.0206]';
+uvms.p = [ -1.9285, 10.6400, -29.3145, 0, 0,  0]';
 % initial goal position definition
 % slightly over the top of the pipe
 distanceGoalWrtPipe = 0.3;
@@ -78,12 +78,15 @@ for t = 0:deltat:end_time
     rhop = zeros(13,1);
     Qp = eye(13); 
     %safety tasks
-    [Qp, rhop] = iCAT_task(uvms.A.ha,   uvms.Jha,   Qp, rhop, uvms.xdot.ha, 0.0001,   0.01, 10);    
+    [Qp, rhop] = iCAT_task(uvms.A.ha,   uvms.Jha,   Qp, rhop, uvms.xdot.ha, 0.0001,   0.01, 10); 
+    [Qp, rhop] = iCAT_task(uvms.A.jointLimitsL,    uvms.JjointLimits,    Qp, rhop, uvms.xdot.jointLimitsL,  0.0001,   0.01, 10);
+    [Qp, rhop] = iCAT_task(uvms.A.jointLimitsU,    uvms.JjointLimits,    Qp, rhop, uvms.xdot.jointLimitsU,  0.0001,   0.01, 10);  
+    
     %toll control
     [Qp, rhop] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp, rhop, uvms.xdot.t,  0.0001,   0.01, 10);
     %optmization
     [Qp, rhop] = iCAT_task(uvms.A.preferedShape,    uvms.JpreferedShape,    Qp, rhop, uvms.xdot.preferedShape,  0.0001,   0.01, 10);
-    %[Qp, rhop] = iCAT_task(uvms.A.vehicleStop,    uvms.JvehicleStop,    Qp, rhop, uvms.xdot.vehicleStop,  0.0001,   0.01, 10);
+    [Qp, rhop] = iCAT_task(uvms.A.vehicleStop,    uvms.JvehicleStop,    Qp, rhop, uvms.xdot.vehicleStop,  0.0001,   0.01, 10);
 
     [Qp, rhop] = iCAT_task(eye(13),     eye(13),    Qp, rhop, zeros(13,1),  0.0001,   0.01, 10);    % this task should be the last one
     % rhop order is [qdot_1, qdot_2, ..., qdot_7, xdot, ydot, zdot, omega_x, omega_y, omega_z]
@@ -102,13 +105,13 @@ for t = 0:deltat:end_time
     [Qp2, rhop2] = iCAT_task(eye(13),     eye(13),    Qp2, rhop2, zeros(13,1),  0.0001,   0.01, 10);    % this task should be the last one
     
     % get the two variables for integrations
+    % vehicle velocity from the first, tool control from the second
     q_dot = rhop2(1:7);
     p_dot = rhop(8:13);
+    
     % add noise
-    % sinusoidal velocity disturbance wrt world frame
-    a_x = 0.5;    % amplitude of the sine along x
-    a_y = 0.5;    % amplitude of the sine along y
-    dist = sin(pi*t)*[a_x a_y 0 0 0 0]';
+    % sinusoidal velocity disturbance * amplitude wrt world frame 
+    dist = sin(pi*t)*[0.3 0.3 0 0 0 0]';
     % sinusoidal velocity disturbance wrt vehicle frame
     noisePdot = [uvms.vTw(1:3,1:3)  zeros(3,3);zeros(3,3) uvms.vTw(1:3,1:3)]*dist;
     uvms.q_dot = q_dot;        
@@ -133,7 +136,8 @@ for t = 0:deltat:end_time
     if (mod(t,0.1) == 0)
         mission.phase
         [ang, lin] = CartError(uvms.vTg , uvms.vTt);
-        norm(lin)
+        angular = ang
+        linear = lin
     end
     
     % enable this to have the simulation approximately evolving like real
