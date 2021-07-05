@@ -103,16 +103,15 @@ for t = 0:deltat:end_time
     [Qp, ydotbar] = iCAT_task(eye(13),     eye(13),    Qp, ydotbar, zeros(13,1),  0.0001,   0.01, 10);    % this task should be the last one
     
     %currents noise
-    ampX = 0.5; 
-    ampY = 0.5;
-    noise = sin(2 * pi * 0.5 * t) * [ampX ampY 0 0 0 0]';
-    % dist w.r.t <v>
-    noisePdot = [uvms.vTw(1:3,1:3)  zeros(3,3);zeros(3,3) uvms.vTw(1:3,1:3)]*noise;  
-    
-    % get the two variables for integration
-    uvms.q_dot = ydotbar(1:7);
-    uvms.p_dot = ydotbar(8:13) + noisePdot;   
-    
+    if (mission.phase == 3)
+        noise = sin(2 * pi * 0.5 * t) * [0.7 0.7 0 0 0 0]';
+        noisePdot = [uvms.vTw(1:3,1:3)  zeros(3,3);zeros(3,3) uvms.vTw(1:3,1:3)]*noise;  
+        uvms.q_dot = ydotbar(1:7);
+        uvms.p_dot = ydotbar(8:13) + noisePdot;   
+    else
+        uvms.q_dot = ydotbar(1:7);
+        uvms.p_dot = ydotbar(8:13);
+    end
     % Integration
 	uvms.q = uvms.q + uvms.q_dot*deltat;
     % beware: p_dot should be projected on <v>
@@ -133,8 +132,7 @@ for t = 0:deltat:end_time
     if (mod(t,0.1) == 0)
        phase = mission.phase
        target_distance = norm(uvms.targetDistance)
-       altitude = uvms.w_distance
-      
+       altitude = uvms.w_distance     
        
     end
 

@@ -111,7 +111,7 @@ for t = 0:deltat:end_time
     
     % add noise
     % sinusoidal velocity disturbance * amplitude wrt world frame 
-    dist = sin(pi*t)*[0.3 0.3 0 0 0 0]';
+    dist = sin(2 * pi * t)*[0.3 0.3 0 0 0 0]';
     % sinusoidal velocity disturbance wrt vehicle frame
     noisePdot = [uvms.vTw(1:3,1:3)  zeros(3,3);zeros(3,3) uvms.vTw(1:3,1:3)]*dist;
     uvms.q_dot = q_dot;        
