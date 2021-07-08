@@ -72,7 +72,7 @@ set(hplot, 'LineWidth', 1);
 legend('vehicle altitude');  
 title('altitude')
 xlabel('t (s)')
-    
+
 
 end
 
