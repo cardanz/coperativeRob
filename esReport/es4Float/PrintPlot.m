@@ -15,13 +15,16 @@ legend('qdot_1','qdot_2','qdot_3','qdot_4','qdot_5','qdot_6','qdot_7');
 
 
 figure(2);
-subplot(3,1,1);
-hplot = plot(plt.t, plt.p);
-set(hplot, 'LineWidth', 1);
-legend('x','y','z','roll','pitch','yaw');
-subplot(2,1,2);
+% subplot(3,1,1);
+% hplot = plot(plt.t, plt.p);
+% set(hplot, 'LineWidth', 1);
+% legend('x','y','z','roll','pitch','yaw');
+% subplot(2,1,2);
 hplot = plot(plt.t, plt.p_dot);
 set(hplot, 'LineWidth', 1);
+title('vehicle velocity')
+xlabel('t (s)')
+ylabel('L.vel (m/s),A.vel (rad/s) ')
 legend('xdot', 'ydot','zdot','omega_x','omega_y','omega_z');
 
 
