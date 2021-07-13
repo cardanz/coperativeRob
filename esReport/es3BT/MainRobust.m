@@ -6,7 +6,7 @@ close all
 
 % Simulation variables (integration and final time)
 deltat = 0.005;
-end_time = 50;
+end_time = 45;
 loop = 1;
 maxloops = ceil(end_time/deltat);
 
@@ -58,8 +58,10 @@ uvms.wRg = rotation(0, pi, pi/2);
 uvms.wTg = [uvms.wRg uvms.goalPosition; 0 0 0 1];
 
 %define the goal position for the vehicle 
-uvms.vehicleGoalPosition = [10.5   37.5  -38]';
-uvms.wRgvehicle = rotation(0, -0.06,    pi);
+%uvms.vehicleGoalPosition = [10.5   37.5  -38]';
+%test target distance
+uvms.vehicleGoalPosition = [10.0   38.5  -38]';
+uvms.wRgvehicle = rotation(0, -0.06,    0.5);
 %goal frame w.r.t world frameas
 uvms.wTgvehicle = [uvms.wRgvehicle uvms.vehicleGoalPosition; 0 0 0 1];
 
@@ -125,7 +127,6 @@ for t = 0:deltat:end_time
        phase = mission.phase
        angle = uvms.theta
        target_distance = norm(uvms.targetDistance)
-       rif = uvms.xdot.targetDistance
       
        
     end

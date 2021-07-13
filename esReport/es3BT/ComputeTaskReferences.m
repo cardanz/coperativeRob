@@ -23,7 +23,7 @@ range = 0.5;
 uvms.xdot.vehicleAlt = Saturate(0.7 * ((threshold + range) - uvms.w_distance),0.7);
 
 %reference for landing action 
-uvms.xdot.vehicleAltLanding = 0.5 * (0 - uvms.w_distance);
+uvms.xdot.vehicleAltLanding = Saturate(0.3 * (0 - uvms.w_distance), 0.3);
 
 %reference for horizontal alignment
 uvms.xdot.vehiclehorAlignement = Saturate(0.5 * (0 - uvms.theta), 0.5);
