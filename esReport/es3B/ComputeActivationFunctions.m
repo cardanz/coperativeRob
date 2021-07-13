@@ -37,7 +37,7 @@ switch mission.phase
             uvms.Aa.vehicleAltLanding = 1;
             uvms.Aa.vehicleAlt = 0;
             uvms.Aa.horAlignement = 1;
-            uvms.Aa.t = 1;
+            uvms.Aa.t = IncreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time);
             
             
 end
