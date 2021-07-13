@@ -6,7 +6,7 @@ close all
 
 % Simulation variables (integration and final time)
 deltat = 0.005;
-end_time = 25;
+end_time = 40;
 loop = 1;
 maxloops = ceil(end_time/deltat);
 
@@ -123,6 +123,7 @@ for t = 0:deltat:end_time
     % add debug prints here
     if (mod(t,0.1) == 0)
        phase = mission.phase
+       uvms.w_distance
       
        
     end
