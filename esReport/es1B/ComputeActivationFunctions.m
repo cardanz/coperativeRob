@@ -15,6 +15,6 @@ uvms.A.vehicleAtt = eye(3);
 
 % exampl activation function vehicle altitude(for sure about 1m, and i don't care
 %over 1.5 m DecreasingBellShapedFunction(1, 1.5, 0, 1, uvms.sensorDistance);
-threshold = 10;
+threshold = 5;
 range = 0.5;
 uvms.A.vehicleAlt = DecreasingBellShapedFunction(threshold, (threshold + range), 0, 1, uvms.w_distance);
