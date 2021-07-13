@@ -97,10 +97,9 @@ for t = 0:deltat:end_time
 
 
     [Qp, ydotbar] = iCAT_task(uvms.A.horAlignement,    uvms.JvehicleAllignement,    Qp, ydotbar, uvms.xdot.vehiclehorAlignement,  0.0001,   0.01, 10);
+    [Qp, ydotbar] = iCAT_task(uvms.A.vehicleAltLanding,    uvms.JvehicleAlt,    Qp, ydotbar, uvms.xdot.vehicleAltLanding,  0.0001,   0.01, 10);
     [Qp, ydotbar] = iCAT_task(uvms.Aa.targetDistance,    uvms.JtargetDistance,    Qp, ydotbar, uvms.xdot.targetDistance,  0.0001,   0.01, 10);
 
-    [Qp, ydotbar] = iCAT_task(uvms.A.vehicleAltLanding,    uvms.JvehicleAlt,    Qp, ydotbar, uvms.xdot.vehicleAltLanding,  0.0001,   0.01, 10);
-        
     [Qp, ydotbar] = iCAT_task(uvms.A.vehiclePos,    uvms.JvehiclePos,    Qp, ydotbar, uvms.xdot.vehiclePos,  0.0001,   0.01, 10);
     [Qp, ydotbar] = iCAT_task(uvms.A.vehicleAtt,    uvms.JvehicleAtt,    Qp, ydotbar, uvms.xdot.vehicleAtt,  0.0001,   0.01, 10);
       
