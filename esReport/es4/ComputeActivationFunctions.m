@@ -44,7 +44,7 @@ switch mission.phase
             uvms.Aa.vehicleAlt = 0;
             uvms.Aa.horAlignement = 1;
             uvms.Aa.t = IncreasingBellShapedFunction(0, 3, 0, 1, mission.phase_time);
-            uvms.Aa.targetDistance = 0;
+            uvms.Aa.targetDistance = DecreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time);
             uvms.Aa.vehicleStop = IncreasingBellShapedFunction(0, 2, 0, 1, mission.phase_time); 
             
             

@@ -54,8 +54,8 @@ uvms.p = [8.5    38.5 -36    0 -0.06    0.5]';
 
 % defines the goal position for the end-effector/tool position task
 uvms.goalPosition = [12.2025   37.3748  -39.8860]';
-%uvms.wRg = rotation(0, pi, pi/2);
-uvms.wRg = rotation(pi/4, pi/3, pi/2); %test configuration
+uvms.wRg = rotation(0, pi, pi/2);
+%uvms.wRg = rotation(pi/4, pi/3, pi/2); %test configuration
 uvms.wTg = [uvms.wRg uvms.goalPosition; 0 0 0 1];
 
 %define the goal position for the vehicle 
