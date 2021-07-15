@@ -31,10 +31,10 @@ set(hplot, 'LineWidth', 2);
 legend('Ajl_11','Ajl_22','Ajl_33','Ajl_44','Ajl_55','Ajl_66','Ajl_77');
 
 figure(4);
-hplot = plot(plt.t, plt.a(8:9,:));
+hplot = plot(plt.t, plt.a(9,:));
 set(hplot, 'LineWidth', 2);
-legend('Amu', 'Aha');
-    
+legend('Aha');
+xlabel('t (s)');    
 
 jlmin  = [-2.9;-1.6;-2.9;-2.95;-2.9;-1.65;-2.8];
 jlmax  = [2.9;1.65;2.9;0.01;2.9;1.25;2.8];
@@ -156,6 +156,11 @@ hold on
 hplot = plot(plt.t,printMax(7,:));
 set(hplot, 'LineWidth',1, 'LineStyle','--','Color','r');
 legend('q7','qMin7','qMax7'); 
+
+figure(12);
+hplot = plot(plt.t,plt.opt(:,:));
+set(hplot, 'LineWidth', 2);
+legend('AprefS1','AprefS2','AprefS3','AprefS4');
     
 
 

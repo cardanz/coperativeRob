@@ -28,6 +28,10 @@ plt.a(9, loop) = uvms.A.ha(1,1);
 plt.toolx(:,loop) = uvms.wTt(1,4);
 plt.tooly(:,loop) = uvms.wTt(2,4);
 
-% altitutde
-plt.altitude(:,loop) = uvms.w_distance;
+% activation function lower limitis
+plt.actL(:,loop) = diag(uvms.A.jointLimitsL);
+% activation function upper limitis
+plt.actU(:,loop) = diag(uvms.A.jointLimitsU);
+plt.opt(:,loop) = diag(uvms.A.preferedShape);
+
 end
