@@ -48,7 +48,8 @@ uvms.JvehiclePos = [];
 uvms.JvehicleAtt = [];
 uvms.JvehicleAltitude = [];
 uvms.JvehicleAllignement = [];
-uvms.JtargetDistance = [];
+uvms.JtargetDistanceU = [];
+uvms.JtargetDistanceL = [];
 uvms.JvehicleStop = [];
     
 
@@ -63,7 +64,8 @@ uvms.xdot.vehicleAtt = [];
 uvms.xdot.vehicleAlt = [];
 uvms.xdot.vehicleAltLanding = [];
 uvms.xdot.vehiclehorAlignement = [];
-uvms.xdot.targetDistance =[];
+uvms.xdot.targetDistanceU =[];
+uvms.xdot.targetDistanceL =[];
 uvms.JvehicleStop = [];
     
 uvms.A.jl = zeros(7,7);
@@ -77,7 +79,8 @@ uvms.A.vehicleAlt = zeros(1,1);
 uvms.A.ha = 0;
 uvms.A.vehicleAltLanding = 0;
 uvms.A.horAlignement = 0;
-uvms.A.targetDistance = 0;
+uvms.A.targetDistanceU = 0;
+uvms.A.targetDistanceL = 0;
 uvms.A.vehicleStop = [];
     
 %pay attention if initial value  (1) can be dangerous?!?

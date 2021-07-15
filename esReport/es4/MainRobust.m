@@ -58,7 +58,11 @@ uvms.wRg = rotation(0, pi, pi/2);
 uvms.wTg = [uvms.wRg uvms.goalPosition; 0 0 0 1];
 
 %define the goal position for the vehicle 
-uvms.vehicleGoalPosition = [10.5   37.5  -38]';
+%uvms.vehicleGoalPosition = [10.5   37.5  -38]';
+%test target distance Upper 
+uvms.vehicleGoalPosition = [10.0   39.5  -38]';
+%test target distance Lower
+%uvms.vehicleGoalPosition = [11.5   37.5  -38]';
 uvms.wRgvehicle = rotation(0, -0.06,    0.5);
 %goal frame w.r.t world frameas
 uvms.wTgvehicle = [uvms.wRgvehicle uvms.vehicleGoalPosition; 0 0 0 1];
@@ -93,7 +97,8 @@ for t = 0:deltat:end_time
 
     [Qp, ydotbar] = iCAT_task(uvms.A.horAlignement,    uvms.JvehicleAllignement,    Qp, ydotbar, uvms.xdot.vehiclehorAlignement,  0.0001,   0.01, 10);
     [Qp, ydotbar] = iCAT_task(uvms.A.vehicleAltLanding,    uvms.JvehicleAlt,    Qp, ydotbar, uvms.xdot.vehicleAltLanding,  0.0001,   0.01, 10);
-    [Qp, ydotbar] = iCAT_task(uvms.Aa.targetDistance,    uvms.JtargetDistance,    Qp, ydotbar, uvms.xdot.targetDistance,  0.0001,   0.01, 10);
+    [Qp, ydotbar] = iCAT_task(uvms.A.targetDistanceU,    uvms.JtargetDistance,    Qp, ydotbar, uvms.xdot.targetDistanceU,  0.0001,   0.01, 10);
+    [Qp, ydotbar] = iCAT_task(uvms.A.targetDistanceL,    uvms.JtargetDistance,    Qp, ydotbar, uvms.xdot.targetDistanceL,  0.0001,   0.01, 10);
         
     [Qp, ydotbar] = iCAT_task(uvms.A.vehiclePos,    uvms.JvehiclePos,    Qp, ydotbar, uvms.xdot.vehiclePos,  0.0001,   0.01, 10);
     [Qp, ydotbar] = iCAT_task(uvms.A.vehicleAtt,    uvms.JvehicleAtt,    Qp, ydotbar, uvms.xdot.vehicleAtt,  0.0001,   0.01, 10);
