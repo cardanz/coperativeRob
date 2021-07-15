@@ -8,7 +8,7 @@ function [uvms, mission] = UpdateMissionPhase(uvms, mission)
                 mission.phase_time = 0;
             end
          case 2
-            if(uvms.theta < 0.069 && norm(uvms.targetDistance) < 1.7 && norm(uvms.targetDistance) > 1.4)%2.5 gradi
+            if(uvms.theta < 0.069 && norm(uvms.targetDistance) < 1.7 && norm(uvms.targetDistance) > 1.4)%4 gradi
                 mission.phase = 3;
                 mission.phase_time = 0;
              end
