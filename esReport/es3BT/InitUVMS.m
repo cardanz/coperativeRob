@@ -61,7 +61,8 @@ uvms.xdot.vehicleAtt = [];
 uvms.xdot.vehicleAlt = [];
 uvms.xdot.vehicleAltLanding = [];
 uvms.xdot.vehiclehorAlignement = [];
-uvms.xdot.targetDistance =[];
+uvms.xdot.targetDistanceU =[];
+uvms.xdot.targetDistanceL =[];
     
 uvms.A.jl = zeros(7,7);
 uvms.A.mu = 0;
@@ -74,7 +75,8 @@ uvms.A.vehicleAlt = zeros(1,1);
 uvms.A.ha = 0;
 uvms.A.vehicleAltLanding = 0;
 uvms.A.horAlignement = 0;
-uvms.A.targetDistance = 0;
+uvms.A.targetDistanceU = 0;
+uvms.A.targetDistanceL = 0;
 
 %pay attention if initial value  (1) can be dangerous?!?
 uvms.Aa.vehiclePos = eye(3);
@@ -84,7 +86,8 @@ uvms.Aa.vehicleAlt = 0;
 uvms.Aa.vehicleAltLanding = 0;
 uvms.Aa.horAlignement = 0;
 uvms.Aa.t = 0;
-uvms.Aa.targetDistance = 0;
+uvms.Aa.targetDistanceU = 0;
+uvms.Aa.targetDistanceL = 0;
 
 %others
 uvms.theta = 0;

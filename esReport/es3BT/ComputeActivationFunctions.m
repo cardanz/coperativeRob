@@ -71,6 +71,7 @@ uvms.A.vehicleAltLanding = 1 * uvms.Aa.vehicleAltLanding;
 uvms.A.horAlignement = 1 * uvms.Aa.horAlignement;
 
 %target distance activation function
-uvms.A.targetDistance = IncreasingBellShapedFunction(1.5, 2, 0, 1, norm(uvms.targetDistance)) * uvms.Aa.targetDistance; 
+uvms.A.targetDistanceU = IncreasingBellShapedFunction(1.6, 1.9, 0, 1, norm(uvms.targetDistance)) * uvms.Aa.targetDistance; 
+uvms.A.targetDistanceL = DecreasingBellShapedFunction(1.2, 1.5, 0, 1, norm(uvms.targetDistance)) * uvms.Aa.targetDistance; 
 
 
