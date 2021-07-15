@@ -31,9 +31,9 @@ set(hplot, 'LineWidth', 2);
 legend('Ajl_11','Ajl_22','Ajl_33','Ajl_44','Ajl_55','Ajl_66','Ajl_77');
 
 figure(4);
-hplot = plot(plt.t, plt.a(9:12,:));
+hplot = plot(plt.t, plt.a(9:13,:));
 set(hplot, 'LineWidth', 2);
-legend('Aha', 'AaltLand','AtargetDistU','AtargetDistL');
+legend('Aha','Aalt','AaltLand','AtargetDistU','AtargetDistL');
     
 figure(5);
 subplot(3,1,1);
@@ -58,13 +58,6 @@ title('vehicle position')
 xlabel('t (s)')
 ylabel('Position (m)')
 ylim([-50 50])
-
-figure(8);
-hplot = plot(plt.t, plt.a(10:11,:));
-set(hplot, 'LineWidth', 2);  
-legend('safety altitude','landing');
-title('Afunction vehicle altitude')
-xlabel('t (s)')
 
 figure(9);
 hplot = plot(plt.t, plt.altitude);
@@ -179,11 +172,17 @@ hplot = plot(plt.t,printMax(7,:));
 set(hplot, 'LineWidth',1, 'LineStyle','--','Color','r');
 legend('q7','qMin7','qMax7'); 
 
-figure(17)
-
+figure(12)
 hplot = plot(plt.t, [plt.actL(:,:);plt.actL(:,:)]);
 set(hplot, 'LineWidth', 1);  
-title('activation function j limits')
+title('activation function j limits L')
+legend('A1','A2','A3','A4','A5','A6','A7');
+xlabel('t (s)')
+figure(13)
+hplot = plot(plt.t, [plt.actU(:,:);plt.actU(:,:)]);
+set(hplot, 'LineWidth', 1);  
+title('activation function j limits U')
+legend('A1','A2','A3','A4','A5','A6','A7');
 xlabel('t (s)')
 end
 
