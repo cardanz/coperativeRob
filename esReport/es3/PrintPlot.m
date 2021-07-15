@@ -26,9 +26,10 @@ legend('xdot', 'ydot','zdot','omega_x','omega_y','omega_z');
 
 
 figure(3);
-hplot = plot(plt.t, plt.a(1:7,:));
+hplot = plot(plt.t, plt.a(10,:));
 set(hplot, 'LineWidth', 2);
-legend('Ajl_11','Ajl_22','Ajl_33','Ajl_44','Ajl_55','Ajl_66','Ajl_77');
+legend('AhorizontalAll');
+xlabel('t (s)');
     
 figure(4);
 subplot(3,1,1);
@@ -55,18 +56,17 @@ ylabel('Position (m)')
 ylim([-50 50])
 
 figure(7);
-hplot = plot(plt.t, plt.a(10:11,:));
-set(hplot, 'LineWidth', 2);  
-legend('safety altitude','landing');
-title('Afunction vehicle altitude')
-xlabel('t (s)')
-
-figure(8);
 hplot = plot(plt.t, plt.altitude);
 set(hplot, 'LineWidth', 1);
 legend('vehicle altitude');  
 title('altitude')
 xlabel('t (s)')
+
+figure(8);
+hplot = plot(plt.t, plt.a(11:12,:));
+set(hplot, 'LineWidth', 2);
+legend('min altitude','land');
+xlabel('t (s)');
 
 
 end
