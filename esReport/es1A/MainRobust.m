@@ -114,10 +114,9 @@ for t = 0:deltat:end_time
    
     % add debug prints here
     if (mod(t,0.1) == 0)
-       tempo = t
-       uvms.p
-       %norm(uvms.v_rho)
-       %uvms.wTt(1:3,4)
+       time = t
+       position = uvms.p
+       
        
     end
 

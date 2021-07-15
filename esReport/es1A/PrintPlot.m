@@ -29,13 +29,8 @@ figure(3);
 hplot = plot(plt.t, plt.a(1:7,:));
 set(hplot, 'LineWidth', 2);
 legend('Ajl_11','Ajl_22','Ajl_33','Ajl_44','Ajl_55','Ajl_66','Ajl_77');
-
-figure(4);
-hplot = plot(plt.t, plt.a(8:9,:));
-set(hplot, 'LineWidth', 2);
-legend('Amu', 'Aha');
     
-figure(5);
+figure(4);
 subplot(3,1,1);
 hplot = plot(plt.t, plt.p((4: end),:));
 set(hplot, 'LineWidth', 1);
@@ -46,7 +41,7 @@ set(hplot, 'LineWidth', 1);
 legend('omega_x','omega_y','omega_z');
 
 
-figure(6);
+figure(5);
 hplot = plot(plt.t, plt.p((4: end),:));
 set(hplot, 'LineWidth', 1);
 legend('roll','pitch','yaw');
@@ -54,7 +49,7 @@ title('vehicle orientation')
 xlabel('t (s)')
 ylabel('Attitude (rad)')
 
-figure(7);
+figure(6);
 hplot = plot(plt.t, plt.p((1: 3),:));
 set(hplot, 'LineWidth', 1);
 legend('x','y','z');
@@ -62,14 +57,14 @@ title('vehicle position')
 xlabel('t (s)')
 ylabel('Position (m)')
 
-figure(8);
+figure(7);
 hplot = plot(plt.t, plt.a(9,:));
 set(hplot, 'LineWidth', 2);
 legend('Aha');  
 title('Afunction horizontal attitude')
 xlabel('t (s)')
 
-figure(9);
+figure(8);
 hplot = plot(plt.t, plt.toolPos);
 set(hplot, 'LineWidth', 1);
 legend('x','y','z');
