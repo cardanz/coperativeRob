@@ -77,7 +77,7 @@ for t = 0:deltat:end_time
     [Qp, rhop] = iCAT_task(uvms.A.jointLimitsU,    uvms.JjointLimits,    Qp, rhop, uvms.xdot.jointLimitsU,  0.0001,   0.01, 10);
     
     [Qp, rhop] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp, rhop, uvms.xdot.t,  0.0001,   0.01, 10);
-    %[Qp, rhop] = iCAT_task(uvms.A.preferedShape,    uvms.JpreferedShape,    Qp, rhop, uvms.xdot.preferedShape,  0.0001,   0.01, 10);
+    [Qp, rhop] = iCAT_task(uvms.A.preferedShape,    uvms.JpreferedShape,    Qp, rhop, uvms.xdot.preferedShape,  0.0001,   0.01, 10);
     [Qp, rhop] = iCAT_task(eye(13),     eye(13),    Qp, rhop, zeros(13,1),  0.0001,   0.01, 10);    % this task should be the last one
     
     % get the two variables for integration
@@ -100,10 +100,9 @@ for t = 0:deltat:end_time
     loop = loop + 1;
    
     % add debug prints here
-    if (mod(t,0.1) == 0)
-        
-        uvms.p'
-        uvms.sensorDistance
+    if (mod(t,0.1) == 0)    
+         position = uvms.p'
+
         
     end
     
