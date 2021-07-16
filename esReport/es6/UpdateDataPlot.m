@@ -21,6 +21,7 @@ plt.p_dot(:, loop) = uvms.p_dot;
 %plt.xdot_mu(:, loop) = uvms.xdot.mu;
 plt.xdot_t(:, loop) =  blkdiag(uvms.wTv(1:3,1:3), uvms.wTv(1:3,1:3))*uvms.xdot.t;
 
+plt.a(1:7, loop) = diag(uvms.A.jl);
 plt.a(1, loop) = uvms.A.ha(1,1);
 plt.a(2:8, loop) = diag(uvms.A.jointLimitsL);
 plt.a(9:15, loop) = diag(uvms.A.jointLimitsU);
@@ -31,4 +32,7 @@ plt.tooly(:,loop) = uvms.wTt(2,4);
 
 % altitutde
 plt.altitude(:,loop) = uvms.w_distance;
+% man
+
+plt.man(:,loop) = sqrt(det(uvms.bJe*(uvms.bJe')));
 end

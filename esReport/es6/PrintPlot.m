@@ -27,12 +27,6 @@ xlabel('t (s)')
 ylabel('L.vel (m/s),A.vel (rad/s) ')
 legend('xdot', 'ydot','zdot','omega_x','omega_y','omega_z');
 
-
-figure(3);
-hplot = plot(plt.t, plt.a(1:7,:));
-set(hplot, 'LineWidth', 2);
-legend('Ajl_11','Ajl_22','Ajl_33','Ajl_44','Ajl_55','Ajl_66','Ajl_77');
-
 figure(4);
 hplot = plot(plt.t, plt.a(8:9,:));
 set(hplot, 'LineWidth', 2);
@@ -88,6 +82,47 @@ legend('x','y','z');
 title('tool position')
 xlabel('t (s)')
 ylabel('Position (m)')
+figure(20);
+hplot = plot(plt.t, plt.toolPos(1,:));
+set(hplot, 'LineWidth', 1);
+title('comparison vehicle and tool x')
+xlabel('t (s)')
+ylabel('Position (m)')
+hold on 
+hplot = plot(plt.t, plt.p(3,:));
+set(hplot, 'LineWidth', 1);
+legend('x tool','x vehicle');
+figure(21);
+hplot = plot(plt.t, plt.toolPos(2,:));
+set(hplot, 'LineWidth', 1);
+title('comparison vehicle and tool y')
+xlabel('t (s)')
+ylabel('Position (m)')
+hold on 
+hplot = plot(plt.t, plt.p(2,:));
+set(hplot, 'LineWidth', 1);
+legend('y tool','y vehicle');
+figure(22);
+hplot = plot(plt.t, plt.toolPos(3,:));
+set(hplot, 'LineWidth', 1);
+title('comparison vehicle and tool z')
+xlabel('t (s)')
+ylabel('Position (m)')
+hold on 
+hplot = plot(plt.t, plt.p(3,:));
+set(hplot, 'LineWidth', 1);
+legend('z tool','z vehicle');
+figure(23)
+plot(plt.t, plt.xdot_t, 'LineWidth', 1);
+title('tool velocities');
+legend('w_x','w_y','w_z','v_x', 'v_y','v_z');
+xlabel('t (s)')
+ylabel('Velocities')
+
+% figure (24)
+% plot(plt.t, plt.man, 'LineWidth', 1);
+% title('man');
+% xlabel('t (s)')
 
 jlmin  = [-2.9;-1.6;-2.9;-2.95;-2.9;-1.65;-2.8];
 jlmax  = [2.9;1.65;2.9;0.01;2.9;1.25;2.8];

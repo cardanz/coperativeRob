@@ -40,17 +40,17 @@ uvms = InitUVMS('DexROV');
 % Initial joint positions. You can change these values to initialize the simulation with a 
 % different starting position for the arm
 uvms.q = [-0.0031 1.2586 0.0128 -1.2460 0.0137 0.0853-pi/2 0.0137]';
-% uvms.p
 % initial position of the vehicle
 % the vector contains the values in the following order
 % [x y z r(rot_x) p(rot_y) y(rot_z)]
 % RPY angles are applied in the following sequence
 % R(rot_x, rot_y, rot_z) = Rz (rot_z) * Ry(rot_y) * Rx(rot_x)
 %uvms.p = [-1.9379 10.4813-6.1 -29.7242-0.1 0 0 0]';
-uvms.p = [ -1.8346, 10.540, -29.34, 0, 0,  0]';
+uvms.p = [-1.9400   10.6052  -29.0009  0.0926, 0.1050, -0.9320]';
+%uvms.p = [ -2, 10.440, -29.34, 0, 0,  -pi]';
 % initial goal position definition
 % slightly over the top of the pipe
-distanceGoalWrtPipe = 0.3;
+distanceGoalWrtPipe = 0.2;
 uvms.goalPosition = pipe_center + (pipe_radius + distanceGoalWrtPipe)*[0 0 1]';
 uvms.wRg = rotation(pi,0,0);
 uvms.wTg = [uvms.wRg uvms.goalPosition; 0 0 0 1];
@@ -103,7 +103,7 @@ for t = 0:deltat:end_time
     [Qp2, rhop2] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp2, rhop2, uvms.xdot.t,  0.0001,   0.01, 10);
     %optmization
     [Qp2, rhop2] = iCAT_task(uvms.A.preferedShape,    uvms.JpreferedShape,    Qp2, rhop2, uvms.xdot.preferedShape,  0.0001,   0.01, 10);
-    %[Qp2, rhop2] = iCAT_task(uvms.A.vehicleStop,    uvms.JvehicleStop,    Qp2, rhop2, uvms.xdot.vehicleStop,  0.0001,   0.01, 10);
+    [Qp2, rhop2] = iCAT_task(uvms.A.vehicleStop,    uvms.JvehicleStop,    Qp2, rhop2, uvms.xdot.vehicleStop,  0.0001,   0.01, 10);
 
     [Qp2, rhop2] = iCAT_task(eye(13),     eye(13),    Qp2, rhop2, zeros(13,1),  0.0001,   0.01, 10);    % this task should be the last one
     
@@ -114,7 +114,7 @@ for t = 0:deltat:end_time
     
     % add noise
     % sinusoidal velocity disturbance * amplitude wrt world frame 
-    dist = sin(0.5 * pi * t)*[1.5 1.5 0 0 0.0 0.0]';
+    dist = sin(2 * pi * t)*[0.0 0.1 0.3 0.0 0.0 0.0]';
     % sinusoidal velocity disturbance wrt vehicle frame
     noisePdot = [uvms.vTw(1:3,1:3)  zeros(3,3);zeros(3,3) uvms.vTw(1:3,1:3)]*dist;
     uvms.q_dot = q_dot;        
@@ -137,11 +137,15 @@ for t = 0:deltat:end_time
    
     % add debug prints hereww
     if (mod(t,0.1) == 0)
-        mission.phase
-        [ang, lin] = CartError(uvms.wTg , uvms.wTt);
-        angular = ang
-        linear = lin
-        uvms.p
+%         mission.phase
+%         [ang, lin] = CartError(uvms.wTg , uvms.wTt);
+%         angular = ang
+%         linear = lin
+          uvms.p
+%         uvms.xdot.t
+%         uvms.xdot.jointLimitsL
+%         uvms.xdot.jointLimitsU
+%         uvms.xdot.preferedShape
     end
     
     % enable this to have the simulation approximately evolving like real

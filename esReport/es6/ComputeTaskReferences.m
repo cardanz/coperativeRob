@@ -2,14 +2,15 @@ function [uvms] = ComputeTaskReferences(uvms, mission)
 % compute the task references here
 
 % reference for tool-frame position control task
+gain = 1;
 [ang, lin] = CartError(uvms.vTg , uvms.vTt);
-uvms.xdot.t = 0.5 * [ang; lin];
+uvms.xdot.t = gain * [ang; lin];
 % limit the requested velocities...
-uvms.xdot.t(1:3) = Saturate(uvms.xdot.t(1:3), 0.5);
-uvms.xdot.t(4:6) = Saturate(uvms.xdot.t(4:6), 0.5);
+uvms.xdot.t(1:3) = Saturate(uvms.xdot.t(1:3), gain);
+uvms.xdot.t(4:6) = Saturate(uvms.xdot.t(4:6), gain);
 
 %i wish to drive the angle to zero
-uvms.xdot.ha = 0.2 * (0 - norm(uvms.v_rho));
+uvms.xdot.ha = gain * (0 - norm(uvms.v_rho));
 
 %error between goal and vehicle position and orientation projected on <w>
  [w_vang, w_vlin] = CartError(uvms.wTgvehicle , uvms.wTv);
@@ -20,13 +21,13 @@ uvms.xdot.ha = 0.2 * (0 - norm(uvms.v_rho));
 uvms.xdot.vehicleStop = zeros(6,1);
 
 %joint limits lower
-uvms.xdot.jointLimitsL = Saturate(0.5 * ((uvms.jlmin + uvms.rangeJoint) -uvms.q), 0.5);
+uvms.xdot.jointLimitsL = Saturate(gain * ((uvms.jlmin + uvms.rangeJoint) -uvms.q), gain);
 %joint limits upper
-uvms.xdot.jointLimitsU = Saturate(0.5 * ((uvms.jlmax - uvms.rangeJoint) -uvms.q), 0.5);
+uvms.xdot.jointLimitsU = Saturate(gain * ((uvms.jlmax - uvms.rangeJoint) -uvms.q), gain);
 
 %prefered shapes
 prefSetting = [-0.0031 1.2586 0.0128 -1.2460]';
-uvms.xdot.preferedShape = Saturate(0.5 * (prefSetting- uvms.q(1:4)), 0.5);
+uvms.xdot.preferedShape = Saturate(gain * (prefSetting- uvms.q(1:4)), gain);
 %vehicle control 
 uvms.xdot.vehicleControl = uvms.p_dot;
 
