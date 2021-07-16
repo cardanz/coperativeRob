@@ -162,5 +162,10 @@ hplot = plot(plt.t,plt.opt(:,:));
 set(hplot, 'LineWidth', 2);
 legend('AprefS1','AprefS2','AprefS3','AprefS4');
 
+% figure (13)
+% plot(plt.t, plt.man, 'LineWidth', 1);
+% title('man');
+% xlabel('t (s)')
+
 end
 

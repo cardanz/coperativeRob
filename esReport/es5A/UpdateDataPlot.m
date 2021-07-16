@@ -33,4 +33,5 @@ plt.actL(:,loop) = diag(uvms.A.jointLimitsL);
 % activation function upper limitis
 plt.actU(:,loop) = diag(uvms.A.jointLimitsU);
 plt.opt(:,loop) = diag(uvms.A.preferedShape);
+plt.man(:,loop) = sqrt(det(uvms.bJe*(uvms.bJe')));
 end
