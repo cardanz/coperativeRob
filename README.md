@@ -1,34 +1,34 @@
 coperativeRob
 Es:
-1A question:
+1A questions:
 -	1.1.1
 -	1.1.2
 -	1.1.3
 -	1.1.4
-1B question: 
+1B questions: 
 -	1.2.1
 -	1.2.2
 -	1.2.3
-2 question:
+2 questions:
 -	2.1.1
 -	2.1.2
 -	2.1.3
-2B question:
+2B questions:
 -	2.2.1
 -	2.2.2
-3 question:
+3 questions:
 -	3.1.1
 -	3.1.2
 3AB question:
 -	3.1.3
 3B no tool distance 
 3BT tool distance
-4 question:
+4 questions:
 -	4.1.1
 -	4.1.2
 4float question:
 -	4.1.3
-4B 
+4B questions:
 -	4.2.1
 -	4.2.2
 5A  shape opt.
