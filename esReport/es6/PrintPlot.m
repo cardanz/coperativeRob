@@ -119,11 +119,6 @@ legend('w_x','w_y','w_z','v_x', 'v_y','v_z');
 xlabel('t (s)')
 ylabel('Velocities')
 
-% figure (24)
-% plot(plt.t, plt.man, 'LineWidth', 1);
-% title('man');
-% xlabel('t (s)')
-
 jlmin  = [-2.9;-1.6;-2.9;-2.95;-2.9;-1.65;-2.8];
 jlmax  = [2.9;1.65;2.9;0.01;2.9;1.25;2.8];
 printMin = repmat(jlmin,[1,length(plt.t)]);

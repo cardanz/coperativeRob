@@ -6,7 +6,7 @@ close all
 
 % Simulation variables (integration and final time)
 deltat = 0.005;
-end_time = 60;
+end_time = 70;
 loop = 1;
 maxloops = ceil(end_time/deltat);
 
@@ -96,8 +96,8 @@ for t = 0:deltat:end_time
     
     [Qp, ydotbar] = iCAT_task(uvms.A.vehicleStop,    uvms.JvehicleStop,    Qp, ydotbar, uvms.xdot.vehicleStop,  0.0001,   0.01, 10);
     
-    [Qp, ydotbar] = iCAT_task(uvms.A.jointLimitsL,    uvms.JjointLimits,    Qp, ydotbar, uvms.xdot.jointLimitsL,  0.0001,   0.01, 10);
-    [Qp, ydotbar] = iCAT_task(uvms.A.jointLimitsU,    uvms.JjointLimits,    Qp, ydotbar, uvms.xdot.jointLimitsU,  0.0001,   0.01, 10);
+    %[Qp, ydotbar] = iCAT_task(uvms.A.jointLimitsL,    uvms.JjointLimits,    Qp, ydotbar, uvms.xdot.jointLimitsL,  0.0001,   0.01, 10);
+    %[Qp, ydotbar] = iCAT_task(uvms.A.jointLimitsU,    uvms.JjointLimits,    Qp, ydotbar, uvms.xdot.jointLimitsU,  0.0001,   0.01, 10);
 
 
     [Qp, ydotbar] = iCAT_task(uvms.A.horAlignement,    uvms.JvehicleAllignement,    Qp, ydotbar, uvms.xdot.vehiclehorAlignement,  0.0001,   0.01, 10);
@@ -134,6 +134,7 @@ for t = 0:deltat:end_time
     if (mod(t,0.1) == 0)
        phase = mission.phase
        [ang, lin] = CartError(uvms.vTg , uvms.vTt);
+       t
        angular = ang 
        linera = lin
        norm(uvms.targetDistance)
